@@ -82,4 +82,22 @@ WindowManager *WindowManager::getInstance()
     return _instance;
 }
 
+const ProcessorInfo &WindowManager::processorInfo() const
+{
+    return _processorInfo;
+}
+
+void WindowManager::setProcessorInfo(const ProcessorInfo &newProcessorInfo)
+{
+    _processorInfo = newProcessorInfo;
+}
+
+void WindowManager::updateInfo(QStringList coreInfo)
+{
+    _processorInfo.registerInfo = QStringList(coreInfo.at(0));
+    _processorInfo.dataInfo = QStringList(coreInfo.at(1));
+    _processorInfo.comandInfo = QStringList(coreInfo.at(2));
+    _processorInfo.currentComandInfo = coreInfo.at(3);
+}
+
 

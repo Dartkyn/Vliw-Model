@@ -60,3 +60,16 @@ void RegisterBlock::setLO(const Register &newLO)
 {
     _LO = newLO;
 }
+
+QStringList RegisterBlock::toString()
+{
+    QStringList strLst;
+    for(int i = 0; i< _generalPurposeRegisters.length(); i++)
+    {
+        strLst.append(QString("R" + QString::number(i) + " " + _generalPurposeRegisters[i].toString()));
+    }
+    strLst.append(QString("LO " + _LO.toString()));
+    strLst.append(QString("HI " + _HI.toString()));
+    strLst.append(QString("IC " + _IC.toString()));
+    return strLst;
+}

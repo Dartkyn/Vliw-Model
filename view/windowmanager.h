@@ -7,8 +7,9 @@
 #include "mainwindow.h"
 #include "memorymainwindow.h"
 #include "registermainform.h"
-#include <QFile>
-class WindowManager
+#include "gui.h"
+#include "QFile"
+class WindowManager : GUI
 {
 public:
     void OpenWindow(QMainWindow wd);
@@ -31,22 +32,27 @@ public:
     static WindowManager *getInstance();
 
 
+    const ProcessorInfo &processorInfo() const;
+    void setProcessorInfo(const ProcessorInfo &newProcessorInfo);
+
+    void updateInfo(QStringList coreInfo);
 private:
     static WindowManager* _instance;
-    //Начальная форма, открываемая при запуске программы
+    /*!Начальная форма, открываемая при запуске программы */
     MainWindow* _enterWindow;
-    //Указатель на текущую открытую форму
+    /*!Указатель на текущую открытую форму */
     QMainWindow* _currentOpenedWindow;
-    //Основная рабочая форма
+    /*!Основная рабочая форма*/
     WorkWindow* _workWindow;
-    //Форма, предназначенная для вывода регистров
+    /*!Форма, предназначенная для вывода регистров */
     RegisterMainForm* _registerWindow;
-    //Форма, предназначенная для вывода содержимого памяти
+    /*!Форма, предназначенная для вывода содержимого памяти */
     MemoryMainWindow* _memoryWindow;
-    //QList<QMainWindow*> WindowList;
+    /*!QList<QMainWindow*> WindowList; */
     QList<QFile> _recentFiles;
     WindowManager();
     WindowManager(MainWindow *enterWindow, QMainWindow *currentOpenedWindow, WorkWindow *workWindow, RegisterMainForm *registerWindow, MemoryMainWindow *memoryWindow);
+
 };
 
 #endif // WINDOWMANAGER_H

@@ -16,7 +16,7 @@ public:
 
     const Register &LO() const;
     void setLO(const Register &newLO);
-
+    QStringList toString();
 private:
     QList<Register> _generalPurposeRegisters;
     Register _IC;

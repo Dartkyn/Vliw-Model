@@ -9,6 +9,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    controller.cpp \
+    core/comand.cpp \
+    core/instruction.cpp \
+    core/proccessor.cpp \
     core/register.cpp \
     core/registerblock.cpp \
     main.cpp \
@@ -21,9 +25,16 @@ SOURCES += \
     view/workwindow.cpp
 
 HEADERS += \
+    controller.h \
+    core/KeyWords.h \
+    core/comand.h \
+    core/core.h \
+    core/instruction.h \
+    core/proccessor.h \
     core/register.h \
     core/registerblock.h \
     view/codeeditor.h \
+    view/gui.h \
     view/linenumberarea.h \
     view/mainwindow.h \
     view/memorymainwindow.h \
