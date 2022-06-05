@@ -100,4 +100,38 @@ void WindowManager::updateInfo(QStringList coreInfo)
     _processorInfo.currentComandInfo = coreInfo.at(3);
 }
 
+const QStringList &WindowManager::recentFiles() const
+{
+    return _recentFiles;
+}
+
+void WindowManager::setRecentFiles(const QStringList &newRecentFiles)
+{
+    _recentFiles = newRecentFiles;
+}
+
+void WindowManager::OpenFile(QString filePath)
+{
+    QByteArray byteArray = _controller->openFile(filePath);
+
+    _recentFiles.append(filePath);
+    _workWindow->loadCodeFile(byteArray);
+    if(_currentOpenedWindow == _enterWindow)
+    {
+        _currentOpenedWindow = _workWindow;
+        OpenCurrentWindow();
+    }
+
+}
+
+void WindowManager::CreateFile()
+{
+    _controller->createNewFile();
+    if(_currentOpenedWindow == _enterWindow)
+    {
+        _currentOpenedWindow = _workWindow;
+        OpenCurrentWindow();
+    }
+}
+
 

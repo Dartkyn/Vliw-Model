@@ -139,11 +139,8 @@ void WorkWindow::memoryTableInitiate()
     }
 }
 
-void WorkWindow::loadCodeFile(QString pathToFile)
+void WorkWindow::loadCodeFile(QByteArray fileArray)
 {
-    QFile file(pathToFile);
-    file.open(QIODevice::ReadWrite);
-    QByteArray fileArray = file.readAll();
     QString str;
     str.append(fileArray);
     CodeEditor* cded = dynamic_cast<CodeEditor*>(codeEditor);

@@ -8,8 +8,7 @@
 #include "memorymainwindow.h"
 #include "registermainform.h"
 #include "gui.h"
-#include "QFile"
-class WindowManager : GUI
+class WindowManager : public GUI
 {
 public:
     void OpenWindow(QMainWindow wd);
@@ -36,6 +35,10 @@ public:
     void setProcessorInfo(const ProcessorInfo &newProcessorInfo);
 
     void updateInfo(QStringList coreInfo);
+    const QStringList &recentFiles() const;
+    void setRecentFiles(const QStringList &newRecentFiles);
+    void OpenFile(QString filePath);
+    void CreateFile();
 private:
     static WindowManager* _instance;
     /*!Начальная форма, открываемая при запуске программы */
@@ -49,7 +52,7 @@ private:
     /*!Форма, предназначенная для вывода содержимого памяти */
     MemoryMainWindow* _memoryWindow;
     /*!QList<QMainWindow*> WindowList; */
-    QList<QFile> _recentFiles;
+    QStringList _recentFiles;
     WindowManager();
     WindowManager(MainWindow *enterWindow, QMainWindow *currentOpenedWindow, WorkWindow *workWindow, RegisterMainForm *registerWindow, MemoryMainWindow *memoryWindow);
 

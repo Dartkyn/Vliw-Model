@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     QStringListModel* model = new QStringListModel();
     model->setStringList(mod);
     ui->recentFilesListView->setModel(model);
-    qDebug() << "Hello from constructor";
 }
 
 MainWindow::~MainWindow()
@@ -34,7 +33,7 @@ void MainWindow::on_openFilePushButton_clicked()
                             tr("Файлы (*.txt *.dat)"));
     if(filePath.capacity() != 0)
     {
-        WindowManager::getInstance()->workWindow()->show();
+        WindowManager::getInstance()->OpenFile(filePath);
         this->close();
     }
 }
@@ -43,7 +42,7 @@ void MainWindow::on_openFilePushButton_clicked()
 void MainWindow::on_newFilePushButton_clicked()
 {
     qDebug() << "Hello from click";
-    WindowManager::getInstance()->workWindow()->show();
+    WindowManager::getInstance()->CreateFile();
     this->close();
 }
 

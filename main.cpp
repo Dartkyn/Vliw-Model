@@ -1,10 +1,15 @@
 #include <QApplication>
-#include "QDebug"
 #include "controller.h"
-
+#include "view/windowmanager.h"
+#include "core/proccessor.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //WindowManager::getInstance()->OpenCurrentWindow();
+    Controller *controller = new Controller();
+    GUI *gui = dynamic_cast<GUI*>(WindowManager::getInstance());
+    Core *processor = dynamic_cast<Core*>(new Proccessor());
+    processor->attach(gui);
+    controller->attachCore(processor);
+    WindowManager::getInstance()->OpenCurrentWindow();
     return a.exec();
 }

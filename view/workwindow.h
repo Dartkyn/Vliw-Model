@@ -16,7 +16,7 @@ class WorkWindow : public QMainWindow
 public:
     explicit WorkWindow(QWidget *parent = nullptr);
     ~WorkWindow();
-
+    void loadCodeFile(QByteArray fileArray);
 private slots:
     void on_showHideRegisters_toggled(bool arg1);
 
@@ -33,7 +33,6 @@ private:
     void ToolBarInitiate();
     void registerTableInitiate();
     void memoryTableInitiate();
-    void loadCodeFile(QString pathToFile);
 private:
     Ui::WorkWindow *ui;
     RegisterMainForm regForm;

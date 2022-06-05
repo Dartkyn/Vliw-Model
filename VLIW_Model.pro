@@ -16,6 +16,7 @@ SOURCES += \
     core/register.cpp \
     core/registerblock.cpp \
     main.cpp \
+    parser.cpp \
     view/codeeditor.cpp \
     view/mainwindow.cpp \
     view/memorymainwindow.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     core/proccessor.h \
     core/register.h \
     core/registerblock.h \
+    parser.h \
     view/codeeditor.h \
     view/gui.h \
     view/linenumberarea.h \
@@ -55,11 +57,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 QMAKE_EXTRA_TARGETS += before_build makefilehook
 
-makefilehook.target = $(MAKEFILE)
-makefilehook.depends = .beforebuild
-
-PRE_TARGETDEPS += .beforebuild
-
-before_build.target = .beforebuild
-before_build.depends = FORCE
-before_build.commands = chcp 1251
