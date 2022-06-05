@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QStringListModel>
 #include <QFileDialog>
-#include "QtDebug"
 #include "windowmanager.h"
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)

@@ -5,11 +5,9 @@
 #include <QHeaderView>
 #include <QTableView>
 #include <QStandardItemModel>
-#include <QStringList>
 #include <QStandardItem>
 #include "codeeditor.h"
 #include "pipelineitem.h"
-#include <QFile>
 using namespace std;
 WorkWindow::WorkWindow(QWidget *parent) :
     QMainWindow(parent),

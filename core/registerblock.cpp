@@ -12,7 +12,7 @@ RegisterBlock::RegisterBlock()
 Register RegisterBlock::getRegister(QString regName)
 {
     auto str = regName.toLower();
-    if(str.first(1)=='r')
+    if(str.at(0)=='r')
     {
        int ind = regName.replace("r", "").toInt();
        return _generalPurposeRegisters[ind];

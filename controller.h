@@ -1,10 +1,10 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#include "parser.h"
-#include "QDebug"
 #include "QFile"
+#include "QDebug"
 #include "QDir"
 #include "QByteArray"
+#include "parser.h"
 class Core;
 class Controller
 {
@@ -28,9 +28,9 @@ public:
 private:
     //static Controller* _instance;
     //GUI *_gui;
-    Parser *_parser;
-    Core *_core;
-    QFile *_currentOpenedFile;
+    Parser *_parser = nullptr;
+    Core *_core = nullptr;
+    QFile _currentOpenedFile;
 };
 
 #endif // CONTROLLER_H

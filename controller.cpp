@@ -22,16 +22,12 @@ void Controller::setGui(GUI *newGui)
 }*/
 void Controller::createNewFile()
 {
-    /* TODO  Не создается файл, крашит программу, разобраться
-    QString str = QDir::currentPath() + "//temp.dat";
+
+    QString str = QDir::currentPath() + "/temp.dat";
     qDebug() << str;
-    _currentOpenedFile = new QFile(str);
-    if(_currentOpenedFile->exists())
-    {
-        _currentOpenedFile->open(QIODevice::ReadWrite);
-    }
-    qDebug() << _currentOpenedFile->fileName();
-    */
+    _currentOpenedFile.setFileName(str);
+    _currentOpenedFile.open(QIODevice::ReadWrite);
+    qDebug() << _currentOpenedFile.fileName();
 }
 
 QByteArray Controller::openFile(QString pathToFile)
@@ -42,10 +38,10 @@ QByteArray Controller::openFile(QString pathToFile)
          if(QFile::exists(pathToFile))
          {
              qDebug() << "Файл существует";
-            _currentOpenedFile = new QFile(pathToFile);
+            _currentOpenedFile.setFileName(pathToFile);
              qDebug() << "File create";
-            _currentOpenedFile->open(QIODevice::ReadWrite);
-            QByteArray fileArray = _currentOpenedFile->readAll();
+            _currentOpenedFile.open(QIODevice::ReadWrite);
+            QByteArray fileArray = _currentOpenedFile.readAll();
             qDebug() << fileArray;
             return fileArray;
          }
@@ -53,13 +49,12 @@ QByteArray Controller::openFile(QString pathToFile)
         qDebug() << QString(e.what());
     }
     return "";
-
 }
 
 void Controller::saveFile(QString fileContets)
 {
     qDebug() << fileContets;
-    _currentOpenedFile->write(fileContets.toUtf8());
+    _currentOpenedFile.write(fileContets.toUtf8());
 }
 
 void Controller::parseFile()
@@ -98,6 +93,5 @@ void Controller::attachCore(Core *core)
 
 Controller::~Controller()
 {
-    _currentOpenedFile->close();
-    delete _currentOpenedFile;
+    _currentOpenedFile.close();
 }

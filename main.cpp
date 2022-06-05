@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     Core *processor = dynamic_cast<Core*>(new Proccessor());
     processor->attach(gui);
     controller->attachCore(processor);
+    gui->attachController(controller);
     WindowManager::getInstance()->OpenCurrentWindow();
     return a.exec();
 }
