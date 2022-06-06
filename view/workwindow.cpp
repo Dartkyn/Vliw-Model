@@ -1,26 +1,14 @@
 #include "workwindow.h"
-#include "ui_workwindow.h"
-#include <QGraphicsScene>
-#include <QIcon>
-#include <QHeaderView>
-#include <QTableView>
-#include <QStandardItemModel>
-#include <QStandardItem>
-#include "codeeditor.h"
-#include "pipelineitem.h"
-using namespace std;
+#include "windowmanager.h"
+
 WorkWindow::WorkWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::WorkWindow)
 {
     ui->setupUi(this);
-    //DrawItems();
-    ToolBarInitiate();
-    //registerTableInitiate();
-    //memoryTableInitiate();
     codeEditor = new CodeEditor();
     ui->codeGroupBox->layout()->addWidget(codeEditor);
-    //loadCodeFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\logs\\inp.txt");
+
 }
 
 WorkWindow::~WorkWindow()
@@ -28,7 +16,7 @@ WorkWindow::~WorkWindow()
     delete ui;
 }
 
-void WorkWindow::DrawItems()
+void WorkWindow::drawItems()
 {
     QGraphicsScene * scene = new QGraphicsScene;
     ui->pipelinesGraphicsView->setScene(scene);
@@ -74,23 +62,6 @@ void WorkWindow::DrawItems()
     scene->addItem(pipIt);
 }
 
-void WorkWindow::ToolBarInitiate()
-{
-    QIcon newIcon, loadIcon, closeIcon, runIcon, runStepIcon, settingsIcon, saveIcon;
-    newIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\new_file.png");
-    loadIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\open_file.png");
-    closeIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\close_file.png");
-    saveIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\save_file.png");
-    runIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\run.png");
-    runStepIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\run_step.png");
-    settingsIcon.addFile("C:\\MyFiles\\Projects\\QTProjects\\TestGUI\\icons\\settings.png");
-    ui->toolBar->addAction(newIcon, "Новый файл...");
-    ui->toolBar->addAction(loadIcon, "Открыть файл...");
-    ui->toolBar->addAction(closeIcon, "Закрыть файл");
-    ui->toolBar->addAction(saveIcon, "Сохранить файл");
-    ui->toolBar->addAction(runIcon, "Запустить");
-    ui->toolBar->addAction(runStepIcon, "Запусть в пошаговом режиме");
-}
 
 void WorkWindow::registerTableInitiate()
 {
@@ -186,12 +157,50 @@ void WorkWindow::on_showHidePipelines_toggled(bool arg1)
 
 void WorkWindow::on_openRegisterForm_triggered()
 {
-    regForm.show();
+    WindowManager::getInstance()->openWindow(dynamic_cast<QMainWindow*>(WindowManager::getInstance()->registerWindow()));
 }
 
 
 void WorkWindow::on_openMemoryForm_triggered()
 {
-    memForm.show();
+    WindowManager::getInstance()->openWindow(dynamic_cast<QMainWindow*>(WindowManager::getInstance()->memoryWindow()));
+}
+
+void WorkWindow::runFile()
+{
+    QPlainTextEdit* textEdit = dynamic_cast<QPlainTextEdit*>(codeEditor);
+    textEdit->setReadOnly(true);
+    WindowManager::getInstance()->runFile();
+}
+
+void WorkWindow::runStepFile()
+{
+    QPlainTextEdit* textEdit = dynamic_cast<QPlainTextEdit*>(codeEditor);
+    textEdit->setReadOnly(true);
+    WindowManager::getInstance()->runStepFile();
+}
+
+
+void WorkWindow::on_runMenuItem_triggered()
+{
+    runFile();
+}
+
+
+void WorkWindow::on_runStepMenuItem_triggered()
+{
+    runStepFile();
+}
+
+
+void WorkWindow::on_runFileToolBarItem_triggered()
+{
+     runFile();
+}
+
+
+void WorkWindow::on_runStepToolBarItem_triggered()
+{
+    runStepFile();
 }
 

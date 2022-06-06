@@ -73,3 +73,16 @@ QStringList Proccessor::toString()
     list.append(currentComand()->toString());
     return list;
 }
+
+
+void Proccessor::doContiniousExecution()
+{
+}
+
+void Proccessor::doStep()
+{
+}
+
+void Proccessor::doStepBack()
+{
+}

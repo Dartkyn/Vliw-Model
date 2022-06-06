@@ -2,11 +2,16 @@
 #define KEYWORDS_H
 #include "QString"
 
+constexpr int MEM_SIZE = 0x100;
+
+//ключевые слова - директивы.
+static const QString kwData = ".data";
+static const QString kwCode = ".code";
 //Ключевые слова - директивы данных
-static const QString kwByte = "byte";
-static const QString kwHalfWord = "hword";
-static const QString kwWord = "word";
-static const QString kwDoubleWord = "dword";
+static const QString kwByte = ".byte";
+static const QString kwHalfWord = ".hword";
+static const QString kwWord = ".word";
+static const QString kwDoubleWord = ".dword";
 //Ключевые слова - арифметико-логические команды
 static const QString kwAnd = "and";
 static const QString kwAdd = "add";
@@ -47,4 +52,5 @@ static const QString kwJnez = "jnez";
 static const QString kwJal = "jal";
 static const QString kwJ = "j";
 
+static const QString kwNop = "nop";
 #endif // KEYWORDS_H

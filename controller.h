@@ -18,9 +18,6 @@ public:
     void saveFile(QString fileContets);
     void parseFile();
     void build(bool isStepRun);
-    void doContiniousExecute();
-    void doStep();
-    void doStepBack();
     Controller();
     void attachCore(Core* core);
     ~Controller();
@@ -31,6 +28,11 @@ private:
     Parser *_parser = nullptr;
     Core *_core = nullptr;
     QFile _currentOpenedFile;
+    QByteArray _contentFile;
+
+    void doContiniousExecute();
+    void doStep();
+    void doStepBack();
 };
 
 #endif // CONTROLLER_H

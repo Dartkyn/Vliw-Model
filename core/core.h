@@ -8,6 +8,9 @@ protected:
 public:
     virtual void update()=0;
     virtual void attach(GUI *gui){_listeners.append(gui);};
+    virtual void doContiniousExecution() = 0;
+    virtual void doStep() = 0;
+    virtual void doStepBack()=0;
 };
 
 #endif // CORE_H

@@ -9,7 +9,7 @@ RegisterBlock::RegisterBlock()
     }
 }
 
-Register RegisterBlock::getRegister(QString regName)
+Register RegisterBlock::getRegisterOnName(QString regName)
 {
     auto str = regName.toLower();
     if(str.at(0)=='r')

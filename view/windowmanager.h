@@ -3,16 +3,16 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include "workwindow.h"
 #include "mainwindow.h"
+#include "workwindow.h"
 #include "memorymainwindow.h"
 #include "registermainform.h"
 #include "gui.h"
 class WindowManager : public GUI
 {
 public:
-    void OpenWindow(QMainWindow wd);
-    void OpenCurrentWindow();
+    void openWindow(QMainWindow* wd);
+    void openCurrentWindow();
     MainWindow *enterWindow() const;
     void setEnterWindow(MainWindow *newEnterWindow);
 
@@ -37,8 +37,10 @@ public:
     void updateInfo(QStringList coreInfo);
     const QStringList &recentFiles() const;
     void setRecentFiles(const QStringList &newRecentFiles);
-    void OpenFile(QString filePath);
-    void CreateFile();
+    void openFile(QString filePath);
+    void createFile();
+    void runFile();
+    void runStepFile();
 private:
     static WindowManager* _instance;
     /*!Начальная форма, открываемая при запуске программы */

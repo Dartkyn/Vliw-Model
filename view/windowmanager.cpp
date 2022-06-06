@@ -1,4 +1,5 @@
 #include "windowmanager.h"
+
 using namespace std;
 
 WindowManager* WindowManager::_instance = nullptr;
@@ -18,7 +19,12 @@ WindowManager::WindowManager(MainWindow *enterWindow, QMainWindow *currentOpened
     _memoryWindow(memoryWindow)
 {}
 
-void WindowManager::OpenCurrentWindow()
+void WindowManager::openWindow(QMainWindow *wd)
+{
+    wd->show();
+}
+
+void WindowManager::openCurrentWindow()
 {
     _currentOpenedWindow->show();
 }
@@ -110,7 +116,17 @@ void WindowManager::setRecentFiles(const QStringList &newRecentFiles)
     _recentFiles = newRecentFiles;
 }
 
-void WindowManager::OpenFile(QString filePath)
+void WindowManager::runFile()
+{
+    _controller->build(false);
+}
+
+void WindowManager::runStepFile()
+{
+    _controller->build(true);
+}
+
+void WindowManager::openFile(QString filePath)
 {
     QByteArray byteArray = _controller->openFile(filePath);
 
@@ -119,18 +135,18 @@ void WindowManager::OpenFile(QString filePath)
     if(_currentOpenedWindow == _enterWindow)
     {
         _currentOpenedWindow = _workWindow;
-        OpenCurrentWindow();
+        openCurrentWindow();
     }
 
 }
 
-void WindowManager::CreateFile()
+void WindowManager::createFile()
 {
     _controller->createNewFile();
     if(_currentOpenedWindow == _enterWindow)
     {
         _currentOpenedWindow = _workWindow;
-        OpenCurrentWindow();
+        openCurrentWindow();
     }
 }
 

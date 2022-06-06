@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/close_file.png</file>
+        <file>icons/new_file.png</file>
+        <file>icons/open_file.png</file>
+        <file>icons/run.png</file>
+        <file>icons/run_step.png</file>
+        <file>icons/save_file.png</file>
+        <file>icons/settings.png</file>
+    </qresource>
+</RCC>

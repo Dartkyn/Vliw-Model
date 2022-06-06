@@ -23,6 +23,12 @@ public:
     void update();
     QStringList toString();
 
+    void doContiniousExecution();
+    void doStep();
+    void doStepBack();
+
+
+
 private:
     /*! Свойство, хранящее указатель на блок регистров */
     RegisterBlock *_registerBlock;
@@ -32,6 +38,9 @@ private:
     QList<Comand> _comandCachce;
     /*! Свойство, хранящее указатель на текущую исполняемую команду */
     Comand *_currentComand;
+    void tick();
+    Comand chooseComand(int IC);
+    void decodeComand();
 };
 
 #endif // PROCCESSOR_H

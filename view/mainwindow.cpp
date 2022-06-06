@@ -1,7 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include <QStringListModel>
-#include <QFileDialog>
 #include "windowmanager.h"
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
@@ -32,7 +29,7 @@ void MainWindow::on_openFilePushButton_clicked()
                             tr("Файлы (*.txt *.dat)"));
     if(filePath.capacity() != 0)
     {
-        WindowManager::getInstance()->OpenFile(filePath);
+        WindowManager::getInstance()->openFile(filePath);
         this->close();
     }
 }
@@ -41,7 +38,7 @@ void MainWindow::on_openFilePushButton_clicked()
 void MainWindow::on_newFilePushButton_clicked()
 {
     qDebug() << "Hello from click";
-    WindowManager::getInstance()->CreateFile();
+    WindowManager::getInstance()->createFile();
     this->close();
 }
 

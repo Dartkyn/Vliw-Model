@@ -135,8 +135,8 @@
     <property name="title">
      <string>Запуск</string>
     </property>
-    <addaction name="action_2"/>
-    <addaction name="action_3"/>
+    <addaction name="runMenuItem"/>
+    <addaction name="runStepMenuItem"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
@@ -164,6 +164,12 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="newFileToolBarItem"/>
+   <addaction name="loadFileToolBarItem"/>
+   <addaction name="closeFileToolBarItem"/>
+   <addaction name="saveFileToolBarItem"/>
+   <addaction name="runFileToolBarItem"/>
+   <addaction name="runStepToolBarItem"/>
   </widget>
   <action name="exitMenuItem">
    <property name="text">
@@ -190,12 +196,12 @@
     <string>C:\MyFiles\Projects\file2.dat</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="runMenuItem">
    <property name="text">
     <string>Запустить выполнение кода</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="runStepMenuItem">
    <property name="text">
     <string>Запутить пошаговый режим</string>
    </property>
@@ -258,8 +264,82 @@
     <string>Показать/скрыть конвейреы</string>
    </property>
   </action>
+  <action name="newFileToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/new_file.png</normaloff>:/icons/icons/new_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>newFile</string>
+   </property>
+   <property name="toolTip">
+    <string>Новый файл...</string>
+   </property>
+  </action>
+  <action name="loadFileToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/open_file.png</normaloff>:/icons/icons/open_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>loadFile</string>
+   </property>
+   <property name="toolTip">
+    <string>Открыть файл...</string>
+   </property>
+  </action>
+  <action name="closeFileToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/close_file.png</normaloff>:/icons/icons/close_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>closeFile</string>
+   </property>
+   <property name="toolTip">
+    <string>Закрыть файл</string>
+   </property>
+  </action>
+  <action name="saveFileToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/save_file.png</normaloff>:/icons/icons/save_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>saveFile</string>
+   </property>
+   <property name="toolTip">
+    <string>Сохранить файл</string>
+   </property>
+  </action>
+  <action name="runFileToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/run.png</normaloff>:/icons/icons/run.png</iconset>
+   </property>
+   <property name="text">
+    <string>runFile</string>
+   </property>
+   <property name="toolTip">
+    <string>Запустить непрерывно</string>
+   </property>
+  </action>
+  <action name="runStepToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/run_step.png</normaloff>:/icons/icons/run_step.png</iconset>
+   </property>
+   <property name="text">
+    <string>runStep</string>
+   </property>
+   <property name="toolTip">
+    <string>Запустить пошагово</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../rsc.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>exitMenuItem</sender>

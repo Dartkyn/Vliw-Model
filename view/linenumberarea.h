@@ -22,7 +22,7 @@ protected:
     }
 
 private:
-    CodeEditor *codeEditor;
+    CodeEditor* codeEditor;
 };
 
 #endif // LINENUMBERAREA_H

@@ -11,6 +11,6 @@ int main(int argc, char *argv[])
     processor->attach(gui);
     controller->attachCore(processor);
     gui->attachController(controller);
-    WindowManager::getInstance()->OpenCurrentWindow();
+    WindowManager::getInstance()->openCurrentWindow();
     return a.exec();
 }

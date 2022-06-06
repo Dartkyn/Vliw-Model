@@ -41,9 +41,9 @@ QByteArray Controller::openFile(QString pathToFile)
             _currentOpenedFile.setFileName(pathToFile);
              qDebug() << "File create";
             _currentOpenedFile.open(QIODevice::ReadWrite);
-            QByteArray fileArray = _currentOpenedFile.readAll();
-            qDebug() << fileArray;
-            return fileArray;
+             _contentFile = _currentOpenedFile.readAll();
+            qDebug() << _contentFile;
+            return _contentFile;
          }
     }  catch (std::exception& e) {
         qDebug() << QString(e.what());
@@ -59,12 +59,23 @@ void Controller::saveFile(QString fileContets)
 
 void Controller::parseFile()
 {
-    //_parser->parseString();
+    QString str = QString(_contentFile);
+    str.replace("\n\n","");
+    qDebug() << str;
+    _parser->parseString(str.split("\n"));
 }
 
 void Controller::build(bool isStepRun)
 {
     parseFile();
+    if(isStepRun == true)
+    {
+       doStep();
+    }
+    else
+    {
+        doContiniousExecute();
+    }
 }
 
 void Controller::doContiniousExecute()

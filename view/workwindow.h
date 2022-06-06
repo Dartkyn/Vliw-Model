@@ -1,10 +1,20 @@
 #ifndef WORKWINDOW_H
 #define WORKWINDOW_H
 
+#include "mainwindow.h"
+#include "ui_workwindow.h"
+#include "codeeditor.h"
+#include "pipelineitem.h"
 #include <QMainWindow>
-#include "registermainform.h"
-#include "memorymainwindow.h"
+#include <QGraphicsScene>
+#include <QIcon>
+#include <QHeaderView>
+#include <QTableView>
+#include <QStandardItemModel>
+#include <QStandardItem>
 
+class WindowManager;
+using namespace std;
 namespace Ui {
 class WorkWindow;
 }
@@ -28,15 +38,22 @@ private slots:
 
     void on_openMemoryForm_triggered();
 
+    void on_runMenuItem_triggered();
+
+    void on_runStepMenuItem_triggered();
+
+    void on_runFileToolBarItem_triggered();
+
+    void on_runStepToolBarItem_triggered();
+
 private:
-    void DrawItems();
-    void ToolBarInitiate();
+    void drawItems();
     void registerTableInitiate();
     void memoryTableInitiate();
+    void runFile();
+    void runStepFile();
 private:
     Ui::WorkWindow *ui;
-    RegisterMainForm regForm;
-    MemoryMainWindow memForm;
     QWidget* codeEditor;
 };
 
