@@ -50,8 +50,8 @@ int Parser::parseCodeString(int number, QStringList fileStringList)
     int indxLabelEnd = currentStr.indexOf(":") + 2;
     qDebug() << indxLabelEnd;
     int indxCommentEnd = currentStr.indexOf("#");
-    QString label = currentStr.first(indxLabelEnd);
-    QString comment = currentStr.last(currentStr.length() - indxCommentEnd);
+    QString label = currentStr.section("", 0, indxLabelEnd);
+    QString comment = currentStr.section("", indxCommentEnd,currentStr.length());
     currentStr = currentStr.section("", indxLabelEnd, indxCommentEnd);
     comand = parseComand(currentStr);
     comand.setLabel(label);
