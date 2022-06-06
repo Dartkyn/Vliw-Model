@@ -9,16 +9,16 @@ public:
     void parseString(QStringList fileStringList);
     const QStringList &getDataStrings() const;
 
-    const QList<Comand> &getComandList() const;
+    const QList<Comand*> &getComandList() const;
 
 private:
     QStringList _dataStrings;
-    QList<Comand> _comandList;
+    QList<Comand*> _comandList;
 
-    int parseDataString(int number, QStringList fileStringList);
-    int parseCodeString(int number, QStringList fileStringList);
-    Instruction parseInstructrions(QString str);
-    Comand parseComand(QString str);
+    void parseDataString(QString currentStr);
+    void parseCodeString(QString currentStr);
+    Instruction* parseInstructrions(QString str);
+    Comand* parseComand(QString str, QString label);
 };
 
 #endif // PARSER_H
