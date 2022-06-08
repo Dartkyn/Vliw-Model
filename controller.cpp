@@ -1,25 +1,5 @@
 #include "controller.h"
-
-/*Controller* Controller::_instance = nullptr;
-Controller *Controller::instance() const
-{
-    if(_instance == nullptr)
-    {
-        _instance = new Controller();
-    }
-    return _instance;
-}
-*/
-
-/*GUI *Controller::gui() const
-{
-    return _gui;
-}
-
-void Controller::setGui(GUI *newGui)
-{
-    _gui = newGui;
-}*/
+#include "core/core.h"
 void Controller::createNewFile()
 {
 
@@ -51,10 +31,10 @@ QByteArray Controller::openFile(QString pathToFile)
     return "";
 }
 
-void Controller::saveFile(QString fileContets)
+void Controller::saveFile(QByteArray fileContets)
 {
     qDebug() << fileContets;
-    _currentOpenedFile.write(fileContets.toUtf8());
+    _currentOpenedFile.write(fileContets);
 }
 
 void Controller::parseFile()
@@ -68,6 +48,7 @@ void Controller::parseFile()
 void Controller::build(bool isStepRun)
 {
     parseFile();
+    _core->init(_parser->getComandList(), _parser->getDataStrings());
     if(isStepRun == true)
     {
        doStep();

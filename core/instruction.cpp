@@ -33,10 +33,11 @@ QString Instruction::toString()
 {
     QString str = _keyword + " ";
     // TODO Проверить, нужны ли параметры
-    for(int i = 0; i< _parameters.length(); i++)
+    for(int i = 0; i< _parameters.length() - 1; i++)
     {
         str = str + _parameters[i] + ",";
     }
+    str += _parameters.last();
     return str;
 
 }

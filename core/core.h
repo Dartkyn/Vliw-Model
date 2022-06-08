@@ -2,6 +2,8 @@
 #define CORE_H
 #include "view/gui.h"
 class GUI;
+class Data;
+class Comand;
 class Core{
 protected:
     QList<GUI*> _listeners;
@@ -11,6 +13,7 @@ public:
     virtual void doContiniousExecution() = 0;
     virtual void doStep() = 0;
     virtual void doStepBack()=0;
+    virtual void init(QList<Comand> lstComand, QList<Data> lstMemory) = 0;
 };
 
 #endif // CORE_H

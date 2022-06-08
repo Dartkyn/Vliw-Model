@@ -1,24 +1,25 @@
 #ifndef PARSER_H
 #define PARSER_H
 #include "core/comand.h"
+#include "core/data.h"
 #include "QDebug"
 class Parser
 {
 public:
     Parser();
     void parseString(QStringList fileStringList);
-    const QStringList &getDataStrings() const;
+    const QList<Data> &getDataStrings() const;
 
-    const QList<Comand*> &getComandList() const;
+    const QList<Comand> &getComandList() const;
 
 private:
-    QStringList _dataStrings;
-    QList<Comand*> _comandList;
+    QList<Data> _dataStrings;
+    QList<Comand> _comandList;
 
     void parseDataString(QString currentStr);
     void parseCodeString(QString currentStr);
     Instruction* parseInstructrions(QString str);
-    Comand* parseComand(QString str, QString label);
+    Comand parseComand(QString str, QString label);
 };
 
 #endif // PARSER_H

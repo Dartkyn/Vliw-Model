@@ -34,13 +34,13 @@ void Parser::parseString(QStringList fileStringList)
     }
 }
 
-const QStringList &Parser::getDataStrings() const
+const QList<Data> &Parser::getDataStrings() const
 {
     return _dataStrings;
 }
 
 
-const QList<Comand*> &Parser::getComandList() const
+const QList<Comand> &Parser::getComandList() const
 {
     return _comandList;
 }
@@ -49,7 +49,7 @@ void Parser::parseDataString(QString currentStr)
 {
     qDebug() << "Hello from parseData";
     qDebug() <<currentStr;
-    while(currentStr[0] == " ")
+    while(currentStr[0] == ' ')
     {
         currentStr = currentStr.remove(0,1);
     }
@@ -67,10 +67,10 @@ void Parser::parseDataString(QString currentStr)
 
 void Parser::parseCodeString(QString currentStr)
 {
-    Comand *comand;
+    Comand comand;
     qDebug() << "Hello from parseCode";
     qDebug() <<currentStr;
-    while(currentStr[0] == " ")
+    while(currentStr[0] == ' ')
     {
         currentStr = currentStr.remove(0,1);
     }
@@ -87,9 +87,9 @@ void Parser::parseCodeString(QString currentStr)
     qDebug() << currentStr;
 }
 
-Comand *Parser::parseComand(QString str, QString label)
+Comand Parser::parseComand(QString str, QString label)
 {
-    while(str[0] == " ")
+    while(str[0] == ' ')
     {
         str = str.remove(0,1);
     }
@@ -100,13 +100,15 @@ Comand *Parser::parseComand(QString str, QString label)
     {
         instructions.append(parseInstructrions(instruction_str[i]));
     }
-    Comand *com = new Comand(label, instructions);
+    Comand com;
+    com.setLabel(label);
+    com.setInstructions(instructions);
     return com;
 }
 
 Instruction* Parser::parseInstructrions(QString str)
 {
-    while(str[0] == " ")
+    while(str[0] == ' ')
     {
         str = str.remove(0,1);
     }

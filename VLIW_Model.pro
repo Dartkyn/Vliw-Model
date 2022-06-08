@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     controller.cpp \
     core/comand.cpp \
+    core/data.cpp \
     core/instruction.cpp \
     core/proccessor.cpp \
     core/register.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     core/KeyWords.h \
     core/comand.h \
     core/core.h \
+    core/data.h \
     core/instruction.h \
     core/proccessor.h \
     core/register.h \
@@ -51,11 +53,12 @@ FORMS += \
     view/registermainform.ui \
     view/workwindow.ui
 
+RESOURCES += \
+        rsc.qrc
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    rsc.qrc
 

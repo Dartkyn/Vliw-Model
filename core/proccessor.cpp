@@ -5,7 +5,7 @@ Proccessor::Proccessor()
 
 }
 
-Proccessor::Proccessor(RegisterBlock *registerBlock, const QStringList &dataCache, const QList<Comand> &comandCahce, Comand *currentComand) : _registerBlock(registerBlock),
+Proccessor::Proccessor(RegisterBlock *registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCahce, Comand *currentComand) : _registerBlock(registerBlock),
     _dataCache(dataCache),
     _comandCachce(comandCahce),
     _currentComand(currentComand)
@@ -21,15 +21,6 @@ void Proccessor::setRegisterBlock(RegisterBlock *newRegisterBlock)
     _registerBlock = newRegisterBlock;
 }
 
-const QStringList &Proccessor::dataCache() const
-{
-    return _dataCache;
-}
-
-void Proccessor::setDataCache(const QStringList &newDataCache)
-{
-    _dataCache = newDataCache;
-}
 
 const QList<Comand> &Proccessor::comandCahce() const
 {
@@ -63,7 +54,12 @@ QStringList Proccessor::toString()
 {
     QStringList list;
     list.append(_registerBlock->toString());
-    list.append(_dataCache);
+    QStringList dataString;
+    for(auto data:_dataCache)
+    {
+        dataString.append(data.toString());
+    }
+    list.append(dataString);
     QStringList comandList;
     for(int i = 0; i < _comandCachce.length(); i++)
     {
@@ -85,4 +81,30 @@ void Proccessor::doStep()
 
 void Proccessor::doStepBack()
 {
+}
+
+void Proccessor::init(QList<Comand> lstComand, QList<Data> lstMemory)
+{
+    _comandCachce = lstComand;
+    _dataCache = lstMemory;
+    qDebug() << "Память в процессоре";
+    for(auto str : _dataCache)
+    {
+        qDebug() << str.toString();
+    }
+    qDebug() << "Команды в процессоре";
+    for(auto cmd : _comandCachce)
+    {
+        qDebug() << cmd.toString();
+    }
+}
+
+const QList<Data> &Proccessor::dataCache() const
+{
+    return _dataCache;
+}
+
+void Proccessor::setDataCache(const QList<Data> &newDataCache)
+{
+    _dataCache = newDataCache;
 }

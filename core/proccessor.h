@@ -3,16 +3,14 @@
 #include "registerblock.h"
 #include "comand.h"
 #include "core.h"
+#include "data.h"
 class Proccessor : public Core
 {
 public:
     Proccessor();
-    Proccessor(RegisterBlock *registerBlock, const QStringList &dataCache, const QList<Comand> &comandCahce, Comand *currentComand);
+    Proccessor(RegisterBlock *registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCahce, Comand *currentComand);
     RegisterBlock *registerBlock() const;
     void setRegisterBlock(RegisterBlock *newRegisterBlock);
-
-    const QStringList &dataCache() const;
-    void setDataCache(const QStringList &newDataCache);
 
     const QList<Comand> &comandCahce() const;
     void setComandCahce(const QList<Comand> &newComandCahce);
@@ -26,14 +24,17 @@ public:
     void doContiniousExecution();
     void doStep();
     void doStepBack();
+    void init(QList<Comand> lstComand, QList<Data> lstMemory);
 
 
+    const QList<Data> &dataCache() const;
+    void setDataCache(const QList<Data> &newDataCache);
 
 private:
     /*! Свойство, хранящее указатель на блок регистров */
     RegisterBlock *_registerBlock;
     /*! Свойство, хранящее кеш данные, содержащий строки данных */
-    QStringList _dataCache;
+    QList<Data> _dataCache;
     /*! Свойство, список команд */
     QList<Comand> _comandCachce;
     /*! Свойство, хранящее указатель на текущую исполняемую команду */
@@ -41,6 +42,7 @@ private:
     void tick();
     Comand chooseComand(int IC);
     void decodeComand();
+
 };
 
 #endif // PROCCESSOR_H
