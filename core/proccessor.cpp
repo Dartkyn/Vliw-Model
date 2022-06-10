@@ -118,10 +118,7 @@ Proccessor::Snapshot::Snapshot(Proccessor *proccessor, const RegisterBlock &regi
     currComand(currComand)
 {}
 
-void Proccessor::Snapshot::getSnapshot()
-{
 
-}
 
 void Proccessor::Snapshot::restore()
 {

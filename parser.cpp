@@ -12,24 +12,27 @@ void Parser::parseString(QStringList fileStringList)
     while(uk_str < fileStringList.length())
     {
         qDebug() << fileStringList[uk_str];
-        if(fileStringList[uk_str] == kwData)
+        if(!fileStringList[uk_str].isEmpty())
         {
-            flag = true;
-        }
-        else
-            if(fileStringList[uk_str] == kwCode)
+            if(fileStringList[uk_str] == kwData)
             {
-                flag = false;
+                flag = true;
             }
             else
-                if(flag)
+                if(fileStringList[uk_str] == kwCode)
                 {
-                    parseDataString(fileStringList[uk_str]);
+                    flag = false;
                 }
                 else
-                {
-                    parseCodeString(fileStringList[uk_str]);
-                }
+                    if(flag)
+                    {
+                        parseDataString(fileStringList[uk_str]);
+                    }
+                    else
+                    {
+                        parseCodeString(fileStringList[uk_str]);
+                    }
+        }
         uk_str++;
     }
 }

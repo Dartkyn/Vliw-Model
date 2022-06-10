@@ -48,7 +48,7 @@ public:
     public:
         Snapshot();
         Snapshot(Proccessor *proccessor, const RegisterBlock &registerBlck, const QList<Data> &dataCh, const QList<Comand> &comandCh, Comand *currComand);
-        void getSnapshot();
+        //void getSnapshot();
         void restore();
     private:
         Proccessor *proccessor;

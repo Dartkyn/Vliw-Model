@@ -20,7 +20,7 @@ QByteArray Controller::openFile(QString pathToFile)
              qDebug() << "Файл существует";
             _currentOpenedFile.setFileName(pathToFile);
              qDebug() << "File create";
-            _currentOpenedFile.open(QIODevice::ReadWrite);
+            _currentOpenedFile.open(QIODevice::ReadOnly);
              _contentFile = _currentOpenedFile.readAll();
             qDebug() << _contentFile;
             return _contentFile;
@@ -33,8 +33,13 @@ QByteArray Controller::openFile(QString pathToFile)
 
 void Controller::saveFile(QByteArray fileContets)
 {
+    qDebug() << "Сохраняем файл";
     qDebug() << fileContets;
+    _currentOpenedFile.close();
+    _currentOpenedFile.open(QIODevice::WriteOnly);
     _currentOpenedFile.write(fileContets);
+    _currentOpenedFile.flush();
+    _contentFile = fileContets;
 }
 
 void Controller::parseFile()

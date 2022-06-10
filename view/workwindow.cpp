@@ -185,33 +185,50 @@ void WorkWindow::runStepBack()
     WindowManager::getInstance()->stepBack();
 }
 
+void WorkWindow::saveFile()
+{
+    QPlainTextEdit* textEdit = dynamic_cast<QPlainTextEdit*>(codeEditor);
+    WindowManager::getInstance()->saveFile(textEdit->toPlainText().toUtf8());
+}
+
 
 void WorkWindow::on_runMenuItem_triggered()
 {
+    saveFile();
     runFile();
 }
 
 
 void WorkWindow::on_runStepMenuItem_triggered()
 {
+    saveFile();
     runStepFile();
 }
 
 
 void WorkWindow::on_runFileToolBarItem_triggered()
 {
-     runFile();
+    saveFile();
+    runFile();
 }
 
 
 void WorkWindow::on_runStepToolBarItem_triggered()
 {
+    saveFile();
     runStepFile();
 }
 
 
 void WorkWindow::on_actionrunStepBackToolBarItem_triggered()
 {
+    saveFile();
     runStepBack();
+}
+
+
+void WorkWindow::on_saveFileToolBarItem_triggered()
+{
+    saveFile();
 }
 

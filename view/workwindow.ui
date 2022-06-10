@@ -274,7 +274,10 @@
     <string>newFile</string>
    </property>
    <property name="toolTip">
-    <string>Новый файл...</string>
+    <string>Новый файл...(Ctrl+N)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="loadFileToolBarItem">
@@ -286,7 +289,10 @@
     <string>loadFile</string>
    </property>
    <property name="toolTip">
-    <string>Открыть файл...</string>
+    <string>Открыть файл...(Ctrl+O)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="closeFileToolBarItem">
@@ -298,7 +304,10 @@
     <string>closeFile</string>
    </property>
    <property name="toolTip">
-    <string>Закрыть файл</string>
+    <string>Закрыть файл (Ctrl+Q)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="saveFileToolBarItem">
@@ -310,7 +319,10 @@
     <string>saveFile</string>
    </property>
    <property name="toolTip">
-    <string>Сохранить файл</string>
+    <string>Сохранить файл (Ctrl+S)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="runFileToolBarItem">
@@ -322,7 +334,7 @@
     <string>runFile</string>
    </property>
    <property name="toolTip">
-    <string>Запустить непрерывно</string>
+    <string>Запустить непрерывно (F5)</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
@@ -337,7 +349,7 @@
     <string>runStep</string>
    </property>
    <property name="toolTip">
-    <string>Запустить пошагово</string>
+    <string>Запустить пошагово (F10)</string>
    </property>
    <property name="shortcut">
     <string>F10</string>
@@ -352,7 +364,7 @@
     <string>runStepBackToolBarItem</string>
    </property>
    <property name="toolTip">
-    <string>Шаг назад</string>
+    <string>Шаг назад (F11)</string>
    </property>
    <property name="shortcut">
     <string>F11</string>

@@ -141,6 +141,14 @@ void WindowManager::stepBack()
     _controller->doStepBack();
 }
 
+void WindowManager::saveFile(QByteArray fileContent)
+{
+    if(!_isRunning)
+    {
+        _controller->saveFile(fileContent);
+    }
+}
+
 void WindowManager::openFile(QString filePath)
 {
     QByteArray byteArray = _controller->openFile(filePath);
