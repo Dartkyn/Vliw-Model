@@ -31,13 +31,17 @@ void Instruction::setParameters(const QStringList &newParameters)
 
 QString Instruction::toString()
 {
-    QString str = _keyword + " ";
+    QString str = _keyword;
     // TODO Проверить, нужны ли параметры
-    for(int i = 0; i< _parameters.length() - 1; i++)
+    if(_parameters.length() > 0)
     {
-        str = str + _parameters[i] + ",";
+        str+=" ";
+        for(int i = 0; i< _parameters.length() - 1; i++)
+        {
+            str = str + _parameters[i] + ",";
+        }
+        str += _parameters.last();
     }
-    str += _parameters.last();
     return str;
 
 }

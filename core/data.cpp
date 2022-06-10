@@ -2,11 +2,11 @@
 
 Data::Data()
 {
-    _dataValue.fill('0', MAX_MEMORY_SIZE);
+    _dataValue = 0;
 }
 
 
-Data::Data(const QString &label, const QString &dataType, const QByteArray &dataValue) : _label(label),
+Data::Data(const QString &label, const QString &dataType, const long long &dataValue) : _label(label),
     _dataType(dataType),
     _dataValue(dataValue)
 {}
@@ -31,21 +31,22 @@ void Data::setDataType(const QString &newDataType)
     _dataType = newDataType;
 }
 
-const QByteArray &Data::dataValue() const
+const long long &Data::dataValue() const
 {
     return _dataValue;
 }
 
-void Data::setDataValue(const QByteArray &newDataValue)
+void Data::setDataValue(const long long &newDataValue)
 {
     _dataValue = newDataValue;
 }
 
 QString Data::toString()
 {
-    QString str = _label + "//";
+    QString str;
+    str =(_label.length() > 0) ? _label + "//" : "";
     str = str + _dataType + "//";
-    str = str + _dataType;
+    str = str + QString::number(_dataValue,16);
     return str;
 }
 

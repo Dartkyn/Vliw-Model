@@ -56,13 +56,45 @@ void Parser::parseDataString(QString currentStr)
     int indxLabelEnd = currentStr.indexOf(":")+1;
     qDebug() << indxLabelEnd;
     QString label;
+    Data data;
     if(indxLabelEnd != 0)
+    {
         label = currentStr.section("", 0, indxLabelEnd-1);
+        data.setLabel(label);
+    }
     int indxCommentEnd = currentStr.indexOf("#");
-    QString comment = currentStr.section("", indxCommentEnd,currentStr.length());
-    //currentStr = currentStr.section("", indxLabelEnd+1, indxCommentEnd);
-    //comand = parseComand(currentStr, label);
-    qDebug() << currentStr;
+    currentStr = currentStr.section("", indxLabelEnd+1, indxCommentEnd-1);
+    while(currentStr[0] == ' ')
+    {
+        currentStr = currentStr.remove(0,1);
+    }
+    QStringList dataStr = currentStr.split(" ");
+    if(dataStr[0]==kwByte||dataStr[0]==kwHalfWord||dataStr[0]==kwDoubleWord||dataStr[0]==kwWord)
+    {
+        data.setDataType(dataStr[0]);
+    }
+    QByteArray arr;
+    for(int i = 1; i< dataStr.length();i++)
+    {
+        qDebug() <<"dataStr: " + dataStr[i];
+        if(dataStr[i].contains(","))
+        {
+            QStringList lst = dataStr[i].split(",");
+            for(auto str:lst)
+            {
+                arr.push_front(str.toLocal8Bit());
+            }
+        }
+        else
+        {
+            arr.append(dataStr[i].toUtf8());
+        }
+    }
+    qDebug() <<"Value: " + arr;
+    qDebug() <<"ValueASNumber: " + QString::number(arr.toLongLong(nullptr,16),16);
+    data.setDataValue(arr.toLongLong(nullptr,16));
+    _dataStrings.append(data);
+
 }
 
 void Parser::parseCodeString(QString currentStr)
@@ -93,7 +125,7 @@ Comand Parser::parseComand(QString str, QString label)
     {
         str = str.remove(0,1);
     }
-    QList<QString> instruction_str;
+    QStringList instruction_str;
     instruction_str = str.split(";");
     QList<Instruction*> instructions;
     for(int i = 0; i < instruction_str.length(); i++)
@@ -114,7 +146,7 @@ Instruction* Parser::parseInstructrions(QString str)
     }
     int indxKeyWordEnd = str.indexOf(" ");
     QString keyWord = str.section("", 0, indxKeyWordEnd);
-    QList<QString> parameters;
+    QStringList parameters;
     if(keyWord != kwNop)
     {
         str = str.section("", indxKeyWordEnd + 1);

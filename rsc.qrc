@@ -7,5 +7,6 @@
         <file>icons/run_step.png</file>
         <file>icons/save_file.png</file>
         <file>icons/settings.png</file>
+        <file>icons/run_step_back.png</file>
     </qresource>
 </RCC>

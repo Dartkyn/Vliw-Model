@@ -5,18 +5,18 @@ Proccessor::Proccessor()
 
 }
 
-Proccessor::Proccessor(RegisterBlock *registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCahce, Comand *currentComand) : _registerBlock(registerBlock),
+Proccessor::Proccessor(RegisterBlock registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCahce, Comand *currentComand) : _registerBlock(registerBlock),
     _dataCache(dataCache),
     _comandCachce(comandCahce),
     _currentComand(currentComand)
 {}
 
-RegisterBlock *Proccessor::registerBlock() const
+RegisterBlock Proccessor::registerBlock() const
 {
     return _registerBlock;
 }
 
-void Proccessor::setRegisterBlock(RegisterBlock *newRegisterBlock)
+void Proccessor::setRegisterBlock(RegisterBlock newRegisterBlock)
 {
     _registerBlock = newRegisterBlock;
 }
@@ -53,7 +53,7 @@ void Proccessor::update()
 QStringList Proccessor::toString()
 {
     QStringList list;
-    list.append(_registerBlock->toString());
+    list.append(_registerBlock.toString());
     QStringList dataString;
     for(auto data:_dataCache)
     {
@@ -75,13 +75,14 @@ void Proccessor::doContiniousExecution()
 {
 }
 
-void Proccessor::doStep()
+Memento* Proccessor::doStep()
 {
+    qDebug() << "Делаем нимок";
+    Snapshot* snp = new Snapshot(this, _registerBlock, _dataCache, _comandCachce, _currentComand);
+    qDebug() << "Снимок создан";
+    return snp;
 }
 
-void Proccessor::doStepBack()
-{
-}
 
 void Proccessor::init(QList<Comand> lstComand, QList<Data> lstMemory)
 {
@@ -93,9 +94,9 @@ void Proccessor::init(QList<Comand> lstComand, QList<Data> lstMemory)
         qDebug() << str.toString();
     }
     qDebug() << "Команды в процессоре";
-    for(auto cmd : _comandCachce)
+    for(int i = 0;i < _comandCachce.length();i++)
     {
-        qDebug() << cmd.toString();
+        qDebug() << _comandCachce.value(i).toString();
     }
 }
 
@@ -107,4 +108,26 @@ const QList<Data> &Proccessor::dataCache() const
 void Proccessor::setDataCache(const QList<Data> &newDataCache)
 {
     _dataCache = newDataCache;
+}
+
+
+Proccessor::Snapshot::Snapshot(Proccessor *proccessor, const RegisterBlock &registerBlck, const QList<Data> &dataCh, const QList<Comand> &comandCh, Comand *currComand) : proccessor(proccessor),
+    _registerBlck(registerBlck),
+    _dataCh(dataCh),
+    _comandCh(comandCh),
+    currComand(currComand)
+{}
+
+void Proccessor::Snapshot::getSnapshot()
+{
+
+}
+
+void Proccessor::Snapshot::restore()
+{
+    qDebug() << "Восстанавливаем";
+    proccessor->setRegisterBlock(_registerBlck);
+    proccessor->setDataCache(_dataCh);
+    proccessor->setComandCahce(_comandCh);
+    proccessor->setCurrentComand(currComand);
 }

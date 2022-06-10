@@ -170,6 +170,7 @@
    <addaction name="saveFileToolBarItem"/>
    <addaction name="runFileToolBarItem"/>
    <addaction name="runStepToolBarItem"/>
+   <addaction name="actionrunStepBackToolBarItem"/>
   </widget>
   <action name="exitMenuItem">
    <property name="text">
@@ -323,6 +324,9 @@
    <property name="toolTip">
     <string>Запустить непрерывно</string>
    </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
   </action>
   <action name="runStepToolBarItem">
    <property name="icon">
@@ -334,6 +338,24 @@
    </property>
    <property name="toolTip">
     <string>Запустить пошагово</string>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
+   </property>
+  </action>
+  <action name="actionrunStepBackToolBarItem">
+   <property name="icon">
+    <iconset resource="../rsc.qrc">
+     <normaloff>:/icons/icons/run_step_back.png</normaloff>:/icons/icons/run_step_back.png</iconset>
+   </property>
+   <property name="text">
+    <string>runStepBackToolBarItem</string>
+   </property>
+   <property name="toolTip">
+    <string>Шаг назад</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>

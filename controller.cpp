@@ -45,18 +45,10 @@ void Controller::parseFile()
     _parser->parseString(str.split("\n"));
 }
 
-void Controller::build(bool isStepRun)
+void Controller::build()
 {
     parseFile();
     _core->init(_parser->getComandList(), _parser->getDataStrings());
-    if(isStepRun == true)
-    {
-       doStep();
-    }
-    else
-    {
-        doContiniousExecute();
-    }
 }
 
 void Controller::doContiniousExecute()
@@ -66,12 +58,13 @@ void Controller::doContiniousExecute()
 
 void Controller::doStep()
 {
-    
+   _history.push_back(_core->doStep());
 }
 
 void Controller::doStepBack()
 {
-    
+    Memento* mem = _history.back();
+    mem->restore();
 }
 Controller::Controller()
 {

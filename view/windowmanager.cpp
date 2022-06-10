@@ -118,12 +118,27 @@ void WindowManager::setRecentFiles(const QStringList &newRecentFiles)
 
 void WindowManager::runFile()
 {
-    _controller->build(false);
+    _controller->build();
+    _isRunning = true;
 }
 
 void WindowManager::runStepFile()
 {
-    _controller->build(true);
+    if(!_isRunning)
+    {
+        _controller->build();
+        _isRunning = true;
+        _controller->doStep();
+    }
+    else
+    {
+        _controller->doStep();
+    }
+}
+
+void WindowManager::stepBack()
+{
+    _controller->doStepBack();
 }
 
 void WindowManager::openFile(QString filePath)

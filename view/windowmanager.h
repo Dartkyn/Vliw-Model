@@ -41,6 +41,7 @@ public:
     void createFile();
     void runFile();
     void runStepFile();
+    void stepBack();
 private:
     static WindowManager* _instance;
     /*!Начальная форма, открываемая при запуске программы */
@@ -55,6 +56,7 @@ private:
     MemoryMainWindow* _memoryWindow;
     /*!QList<QMainWindow*> WindowList; */
     QStringList _recentFiles;
+    bool _isRunning = false;
     WindowManager();
     WindowManager(MainWindow *enterWindow, QMainWindow *currentOpenedWindow, WorkWindow *workWindow, RegisterMainForm *registerWindow, MemoryMainWindow *memoryWindow);
 

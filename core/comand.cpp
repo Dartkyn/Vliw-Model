@@ -27,8 +27,9 @@ void Comand::setInstructions(const QList<Instruction*> &newInstructions)
 
 QString Comand::toString()
 {
-    QString str = _label + "//";
-    for(int i = 0; i< _instructions.length() - 1; i++)
+    QString str;
+    str =(_label.length() > 0)? _label + "//": "";
+    for(int i = 0; i < _instructions.length() - 1; i++)
     {
         str = str + _instructions[i]->toString() + ";";
     }

@@ -46,12 +46,15 @@ private slots:
 
     void on_runStepToolBarItem_triggered();
 
+    void on_actionrunStepBackToolBarItem_triggered();
+
 private:
     void drawItems();
     void registerTableInitiate();
     void memoryTableInitiate();
     void runFile();
     void runStepFile();
+    void runStepBack();
 private:
     Ui::WorkWindow *ui;
     QWidget* codeEditor;

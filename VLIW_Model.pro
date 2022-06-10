@@ -33,6 +33,7 @@ HEADERS += \
     core/core.h \
     core/data.h \
     core/instruction.h \
+    core/memento.h \
     core/proccessor.h \
     core/register.h \
     core/registerblock.h \

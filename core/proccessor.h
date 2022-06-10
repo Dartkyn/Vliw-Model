@@ -8,9 +8,9 @@ class Proccessor : public Core
 {
 public:
     Proccessor();
-    Proccessor(RegisterBlock *registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCahce, Comand *currentComand);
-    RegisterBlock *registerBlock() const;
-    void setRegisterBlock(RegisterBlock *newRegisterBlock);
+    Proccessor(RegisterBlock registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCahce, Comand *currentComand);
+    RegisterBlock registerBlock() const;
+    void setRegisterBlock(RegisterBlock newRegisterBlock);
 
     const QList<Comand> &comandCahce() const;
     void setComandCahce(const QList<Comand> &newComandCahce);
@@ -22,8 +22,7 @@ public:
     QStringList toString();
 
     void doContiniousExecution();
-    void doStep();
-    void doStepBack();
+    Memento* doStep();
     void init(QList<Comand> lstComand, QList<Data> lstMemory);
 
 
@@ -32,7 +31,7 @@ public:
 
 private:
     /*! Свойство, хранящее указатель на блок регистров */
-    RegisterBlock *_registerBlock;
+    RegisterBlock _registerBlock;
     /*! Свойство, хранящее кеш данные, содержащий строки данных */
     QList<Data> _dataCache;
     /*! Свойство, список команд */
@@ -42,7 +41,21 @@ private:
     void tick();
     Comand chooseComand(int IC);
     void decodeComand();
-
+    //TODO Перенести в отдельный класс
+public:
+    class Snapshot:public Memento
+    {
+    public:
+        Snapshot();
+        Snapshot(Proccessor *proccessor, const RegisterBlock &registerBlck, const QList<Data> &dataCh, const QList<Comand> &comandCh, Comand *currComand);
+        void getSnapshot();
+        void restore();
+    private:
+        Proccessor *proccessor;
+        RegisterBlock _registerBlck;
+        QList<Data> _dataCh;
+        QList<Comand> _comandCh;
+        Comand *currComand;};
 };
 
 #endif // PROCCESSOR_H

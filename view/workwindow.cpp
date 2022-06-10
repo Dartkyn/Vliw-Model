@@ -180,6 +180,11 @@ void WorkWindow::runStepFile()
     WindowManager::getInstance()->runStepFile();
 }
 
+void WorkWindow::runStepBack()
+{
+    WindowManager::getInstance()->stepBack();
+}
+
 
 void WorkWindow::on_runMenuItem_triggered()
 {
@@ -202,5 +207,11 @@ void WorkWindow::on_runFileToolBarItem_triggered()
 void WorkWindow::on_runStepToolBarItem_triggered()
 {
     runStepFile();
+}
+
+
+void WorkWindow::on_actionrunStepBackToolBarItem_triggered()
+{
+    runStepBack();
 }
 

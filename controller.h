@@ -5,7 +5,7 @@
 #include "QDir"
 #include "QByteArray"
 #include "parser.h"
-
+#include "core/memento.h"
 class Core;
 class Controller
 {
@@ -15,11 +15,13 @@ public:
     void saveFile(QByteArray fileContets);
     void parseFile();
     /*! Метод, отвечающий за запуск исходного кода, если isStepRun=true - запуск в пошаговом режиме*/
-    void build(bool isStepRun);
+    void build();
     Controller();
     void attachCore(Core* core);
     ~Controller();
-
+    void doStep();
+    void doStepBack();
+    void doContiniousExecute();
 private:
      /*! */
     Parser *_parser;
@@ -29,10 +31,8 @@ private:
     QFile _currentOpenedFile;
     /*! Свойстово отвечающее за хранение содержиого файла*/
     QByteArray _contentFile;
+    std::vector<Memento*> _history;
 
-    void doContiniousExecute();
-    void doStep();
-    void doStepBack();
 };
 
 #endif // CONTROLLER_H
