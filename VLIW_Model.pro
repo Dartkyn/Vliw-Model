@@ -10,10 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     controller.cpp \
+    core/arithmeticlogicunit.cpp \
     core/comand.cpp \
     core/data.cpp \
+    core/flowcontrolunit.cpp \
     core/instruction.cpp \
     core/proccessor.cpp \
+    core/readstoreunit.cpp \
     core/register.cpp \
     core/registerblock.cpp \
     main.cpp \
@@ -29,12 +32,16 @@ SOURCES += \
 HEADERS += \
     controller.h \
     core/KeyWords.h \
+    core/arithmeticlogicunit.h \
     core/comand.h \
     core/core.h \
     core/data.h \
+    core/executeModul.h \
+    core/flowcontrolunit.h \
     core/instruction.h \
     core/memento.h \
     core/proccessor.h \
+    core/readstoreunit.h \
     core/register.h \
     core/registerblock.h \
     parser.h \

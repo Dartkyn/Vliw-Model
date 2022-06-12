@@ -7,6 +7,7 @@ RegisterBlock::RegisterBlock()
         Register reg;
         _generalPurposeRegisters.push_back(reg);
     }
+    _IC.setDoubleWord(0);
 }
 
 Register RegisterBlock::getRegisterOnName(QString regName)
@@ -31,7 +32,7 @@ Register RegisterBlock::getRegisterOnName(QString regName)
     }
 }
 
-const Register &RegisterBlock::IC() const
+Register &RegisterBlock::IC()
 {
     return _IC;
 }

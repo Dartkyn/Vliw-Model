@@ -5,18 +5,20 @@ Instruction::Instruction()
 
 }
 
-Instruction::Instruction(QString keyword, const QStringList &parameters) : _keyword(keyword),
-    _parameters(parameters)
-{}
+Instruction::Instruction(QString keyword, const QStringList &parameters)
+{
+    _keyword = findKeyword(keyword);
+    _parameters = parameters;
+}
 
-QString Instruction::keyword() const
+Keyword Instruction::keyword() const
 {
     return _keyword;
 }
 
 void Instruction::setKeyword(QString newKeyword)
 {
-    _keyword = newKeyword;
+    _keyword = findKeyword(newKeyword);
 }
 
 const QStringList &Instruction::parameters() const
@@ -31,8 +33,8 @@ void Instruction::setParameters(const QStringList &newParameters)
 
 QString Instruction::toString()
 {
-    QString str = _keyword;
-    // TODO Проверить, нужны ли параметры
+    QString str = _keyword.kword;
+
     if(_parameters.length() > 0)
     {
         str+=" ";
@@ -43,6 +45,55 @@ QString Instruction::toString()
         str += _parameters.last();
     }
     return str;
+}
 
+bool Instruction::operator ==(Instruction instruction) const
+{
+    if(this->_keyword.kword == instruction.keyword().kword)
+        return true;
+    else
+        return false;
+}
+
+Keyword Instruction::findKeyword(QString newKWord)
+{
+    if(kwAnd.kword == newKWord) return kwAnd;
+    if(kwAdd.kword == newKWord) return kwAdd;
+    if(kwDAdd.kword == newKWord) return kwDAdd;
+    if(kwSub.kword == newKWord) return kwSub;
+    if(kwDSub.kword == newKWord) return kwDSub;
+    if(kwDiv.kword == newKWord) return kwDiv;
+    if(kwDDiv.kword == newKWord) return kwDDiv;
+    if(kwMult.kword == newKWord) return kwMult;
+    if(kwDMult.kword == newKWord) return kwDMult;
+    if(kwOr.kword == newKWord) return kwOr;
+    if(kwXor.kword == newKWord) return kwXor;
+    if(kwNot.kword == newKWord) return kwNot;
+    if(kwSsl.kword == newKWord) return kwSsl;
+    if(kwDSsl.kword == newKWord) return kwDSsl;
+    if(kwSrl.kword == newKWord) return kwSrl;
+    if(kwDsrl.kword == newKWord) return kwDsrl;
+    if(kwMflo.kword == newKWord) return kwMflo;
+    if(kwMfhi.kword == newKWord) return kwMfhi;
+    if(kwMovn.kword == newKWord) return kwMovn;
+    if(kwMovz.kword == newKWord) return kwMovz;
+    if(kwLB.kword == newKWord) return kwLB;
+    if(kwLD.kword == newKWord) return kwLD;
+    if(kwLH.kword == newKWord) return kwLH;
+    if(kwLW.kword == newKWord) return kwLW;
+    if(kwSB.kword == newKWord) return kwSB;
+    if(kwSD.kword == newKWord) return kwSD;
+    if(kwSH.kword == newKWord) return kwSH;
+    if(kwSW.kword == newKWord) return kwSW;
+    if(kwJump.kword == newKWord) return kwJump;
+    if(kwJeq.kword == newKWord) return kwJeq;
+    if(kwJeqz.kword == newKWord) return kwJeqz;
+    if(kwJgez.kword == newKWord) return kwJgez;
+    if(kwJne.kword == newKWord) return kwJne;
+    if(kwJnez.kword == newKWord) return kwJnez;
+    if(kwJal.kword == newKWord) return kwJal;
+    if(kwJ.kword == newKWord) return kwJ;
+    if(kwNop.kword == newKWord) return kwNop;
+    return kwErr;
 }
 

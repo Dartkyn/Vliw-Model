@@ -72,7 +72,7 @@ void Parser::parseDataString(QString currentStr)
         currentStr = currentStr.remove(0,1);
     }
     QStringList dataStr = currentStr.split(" ");
-    if(dataStr[0]==kwByte||dataStr[0]==kwHalfWord||dataStr[0]==kwDoubleWord||dataStr[0]==kwWord)
+    if(dataStr[0]==kwByte.kword||dataStr[0]==kwHalfWord.kword||dataStr[0]==kwDoubleWord.kword||dataStr[0]==kwWord.kword)
     {
         data.setDataType(dataStr[0]);
     }
@@ -130,7 +130,7 @@ Comand Parser::parseComand(QString str, QString label)
     }
     QStringList instruction_str;
     instruction_str = str.split(";");
-    QList<Instruction*> instructions;
+    QList<Instruction> instructions;
     for(int i = 0; i < instruction_str.length(); i++)
     {
         instructions.append(parseInstructrions(instruction_str[i]));
@@ -141,7 +141,7 @@ Comand Parser::parseComand(QString str, QString label)
     return com;
 }
 
-Instruction* Parser::parseInstructrions(QString str)
+Instruction Parser::parseInstructrions(QString str)
 {
     while(str[0] == ' ')
     {
@@ -150,14 +150,18 @@ Instruction* Parser::parseInstructrions(QString str)
     int indxKeyWordEnd = str.indexOf(" ");
     QString keyWord = str.section("", 0, indxKeyWordEnd);
     QStringList parameters;
-    if(keyWord != kwNop)
+    if(keyWord != kwNop.kword)
     {
         str = str.section("", indxKeyWordEnd + 1);
         parameters = str.split(",");
         for(int i=0; i< parameters.length();i++)
             parameters[i].remove(" ");
     }
-    Instruction *inst = new Instruction(keyWord, parameters);
+    Instruction inst = Instruction(keyWord, parameters);
+    if(inst.keyword().codeNumber == kwErr.codeNumber)
+    {
+        qDebug() << "Ошибка в инструкции: " + str;
+    }
     return inst;
 }
 

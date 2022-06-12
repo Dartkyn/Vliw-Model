@@ -5,16 +5,18 @@ class Comand
 {
 public:
     Comand();
-    Comand(const QString &label, const QList<Instruction*> &instructions);
+    Comand(const QString &label, const QList<Instruction> &instructions);
     const QString &label() const;
     void setLabel(const QString &newLabel);
 
-    const QList<Instruction*> &instructions() const;
-    void setInstructions(const QList<Instruction*> &newInstructions);
+    const QList<Instruction> &instructions() const;
+    void setInstructions(const QList<Instruction> &newInstructions);
     QString toString();
+    bool operator == (Comand comad);
 private:
     QString _label;
-    QList<Instruction*> _instructions;
+    QList<Instruction> _instructions;
+
 
 };
 

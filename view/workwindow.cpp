@@ -8,7 +8,7 @@ WorkWindow::WorkWindow(QWidget *parent) :
     ui->setupUi(this);
     codeEditor = new CodeEditor();
     ui->codeGroupBox->layout()->addWidget(codeEditor);
-
+    registerTableInitiate();
 }
 
 WorkWindow::~WorkWindow()
@@ -65,6 +65,7 @@ void WorkWindow::drawItems()
 
 void WorkWindow::registerTableInitiate()
 {
+    //TODO Подумать над реализацией отображения регистров.
     QStringList headerList;
     QStandardItemModel* model = new QStandardItemModel();
     headerList.append("Регистр");
@@ -74,14 +75,17 @@ void WorkWindow::registerTableInitiate()
     ui->registersTableView->setModel(model);
     ui->registersTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     int num;
-    for(int i = 0; i < 32; i++)
+    //QStringList str = WindowManager::getInstance()->processorInfo().registerInfo;
+    //qDebug() << str.first();
+    /*for(int i = 0; i < str.length(); i++)
     {
+        qDebug()<< str.at(i);
         num= rand()/(RAND_MAX/255);
         QStandardItem* item = new QStandardItem(QString("R" + QString::number(i)));
         model->setItem(i,0, item);
         model->setItem(i,1, new QStandardItem(QString::number(num)));
         model->setItem(i,2, new QStandardItem(QString::number(model->item(i,1)->text().toInt(),16).toUpper()));
-    }
+    }*/
 }
 
 void WorkWindow::memoryTableInitiate()

@@ -3,54 +3,66 @@
 #include "QString"
 
 constexpr int MEM_SIZE = 0x100;
-
+struct Keyword{
+    QString kword;
+    int codeNumber;
+};
 //ключевые слова - директивы.
 static const QString kwData = ".data";
 static const QString kwCode = ".code";
 //Ключевые слова - директивы данных
-static const QString kwByte = ".byte";
-static const QString kwHalfWord = ".hword";
-static const QString kwWord = ".word";
-static const QString kwDoubleWord = ".dword";
+static const Keyword kwByte = {".byte", 001};
+static const Keyword kwHalfWord = { ".hword", 002};
+static const Keyword kwWord = {".word", 003};
+static const Keyword kwDoubleWord = { ".dword", 004};
 //Ключевые слова - арифметико-логические команды
-static const QString kwAnd = "and";
-static const QString kwAdd = "add";
-static const QString kwDAdd = "dadd";
-static const QString kwSub = "sub";
-static const QString kwDSub = "dsub";
-static const QString kwDiv = "div";
-static const QString kwDDiv = "ddiv";
-static const QString kwMult = "mult";
-static const QString kwDMult = "dmult";
-static const QString kwOr = "or";
-static const QString kwXor = "xor";
-static const QString kwNot = "not";
-static const QString kwSsl = "ssl";
-static const QString kwDSsl = "dssl";
-static const QString kwSrl = "srl";
-static const QString kwDsrl = "dsrl";
-static const QString kwMflo = "mflo";
-static const QString kwMfhi = "mfhi";
-static const QString kwMovn = "movn";
-static const QString kwMovz = "movz";
+static const Keyword kwAnd = {"and", 010};
+static const Keyword kwAdd = {"add", 011};
+static const Keyword kwDAdd = {"dadd", 012};
+static const Keyword kwSub = {"sub",013};
+static const Keyword kwDSub = {"dsub",014};
+static const Keyword kwDiv = {"div",015};
+static const Keyword kwDDiv = {"ddiv",016};
+static const Keyword kwMult = {"mult",017};
+static const Keyword kwDMult = {"dmult", 18};
+static const Keyword kwOr = {"or",19};
+static const Keyword kwXor = {"xor",20};
+static const Keyword kwNot = {"not",21};
+static const Keyword kwSsl = {"ssl",22};
+static const Keyword kwDSsl = {"dssl",23};
+static const Keyword kwSrl = {"srl",24};
+static const Keyword kwDsrl = {"dsrl",25};
+static const Keyword kwMflo = {"mflo",26};
+static const Keyword kwMfhi = {"mfhi",27};
+static const Keyword kwMovn = {"movn",28};
+static const Keyword kwMovz = {"movz",29};
 //Ключевые слова - команды обмена с памятью
-static const QString kwLB = "lb";
-static const QString kwLD = "ld";
-static const QString kwLH = "lh";
-static const QString kwLW = "lw";
-static const QString kwSB = "sb";
-static const QString kwSD = "sd";
-static const QString kwSH = "sh";
-static const QString kwSW = "sw";
+static const Keyword kwLB = {"lb",30};
+static const Keyword kwLD = {"ld",31};
+static const Keyword kwLH = {"lh",32};
+static const Keyword kwLW = {"lw",33};
+static const Keyword kwSB = {"sb",34};
+static const Keyword kwSD = {"sd",35};
+static const Keyword kwSH = {"sh",36};
+static const Keyword kwSW = {"sw",37};
 //Ключевые слова - команды переходов
-static const QString kwJump = "jump";
-static const QString kwJeq = "jeq";
-static const QString kwJeqz = "jeqz";
-static const QString kwJgez = "jgez";
-static const QString kwJne = "jne";
-static const QString kwJnez = "jnez";
-static const QString kwJal = "jal";
-static const QString kwJ = "j";
+static const Keyword kwJump = {"jump",40};
+static const Keyword kwJeq = {"jeq",41};
+static const Keyword kwJeqz = {"jeqz",42};
+static const Keyword kwJgez = {"jgez",43};
+static const Keyword kwJne = {"jne",44};
+static const Keyword kwJnez = {"jnez",45};
+static const Keyword kwJal = {"jal",46};
+static const Keyword kwJ = {"j",47};
 
-static const QString kwNop = "nop";
+static const Keyword kwNop = {"nop",100};
+static const Keyword kwErr = {"error",666};
+
+/*static const QString flContKW[] = {kwJump, kwJeq, kwJeqz,kwJgez,kwJne,kwJnez, kwJal, kwJ};
+static const QString rdStKW[] = {kwLB, kwLD,kwLH,kwLW, kwSB, kwSD, kwSH, kwSW};
+static const QString aluKW[] = {kwAnd, kwAdd, kwDAdd, kwSub, kwDSub, kwDiv,
+                                kwDDiv, kwMult, kwDMult, kwOr, kwXor,
+                               kwNot, kwSsl, kwDSsl, kwSrl, kwDsrl, kwMflo, kwMfhi, kwMovn, kwMovz};
+
+*/
 #endif // KEYWORDS_H

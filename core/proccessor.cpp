@@ -73,11 +73,23 @@ QStringList Proccessor::toString()
 
 void Proccessor::doContiniousExecution()
 {
+    Comand cmd;
+    Instruction inst;
+    inst.setKeyword("nop");
+    QList<Instruction> list;
+    list.append(inst);
+    list.append(inst);
+    list.append(inst);
+    cmd.setInstructions(list);
+    while(!(*_currentComand == cmd))
+    {
+        tick();
+    }
 }
 
 Memento* Proccessor::doStep()
 {
-    qDebug() << "Делаем нимок";
+    qDebug() << "Делаем cнимок";
     Snapshot* snp = new Snapshot(this, _registerBlock, _dataCache, _comandCachce, _currentComand);
     qDebug() << "Снимок создан";
     return snp;
@@ -110,6 +122,27 @@ void Proccessor::setDataCache(const QList<Data> &newDataCache)
     _dataCache = newDataCache;
 }
 
+void Proccessor::tick()
+{
+    chooseComand();
+    update();
+}
+
+void Proccessor::chooseComand()
+{
+    int ic = _registerBlock.IC().getDoubleWord();
+    qDebug() << "Текущая команда: " + _currentComand->toString();
+    _currentComand = &(_comandCachce[ic]);
+    ic++;
+    _registerBlock.IC().setDoubleWord(ic);
+}
+
+void Proccessor::decodeComand()
+{
+
+
+}
+
 
 Proccessor::Snapshot::Snapshot(Proccessor *proccessor, const RegisterBlock &registerBlck, const QList<Data> &dataCh, const QList<Comand> &comandCh, Comand *currComand) : proccessor(proccessor),
     _registerBlck(registerBlck),
@@ -117,8 +150,6 @@ Proccessor::Snapshot::Snapshot(Proccessor *proccessor, const RegisterBlock &regi
     _comandCh(comandCh),
     currComand(currComand)
 {}
-
-
 
 void Proccessor::Snapshot::restore()
 {

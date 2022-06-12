@@ -7,16 +7,17 @@ class Instruction
 public:
     Instruction();
     Instruction(QString keyword, const QStringList &parameters);
-    QString keyword() const;
+    Keyword keyword() const;
     void setKeyword(QString newKeyword);
 
     const QStringList &parameters() const;
     void setParameters(const QStringList &newParameters);
     QString toString();
+    bool operator == (Instruction instruction) const;
 private:
-    QString _keyword;
+    Keyword _keyword;
     QStringList _parameters;
-
+    Keyword findKeyword(QString newKWord);
 
 };
 

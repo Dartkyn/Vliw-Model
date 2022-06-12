@@ -18,7 +18,7 @@ private:
 
     void parseDataString(QString currentStr);
     void parseCodeString(QString currentStr);
-    Instruction* parseInstructrions(QString str);
+    Instruction parseInstructrions(QString str);
     Comand parseComand(QString str, QString label);
 };
 

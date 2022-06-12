@@ -4,6 +4,7 @@
 #include "comand.h"
 #include "core.h"
 #include "data.h"
+#include "ExecuteModul.h"
 class Proccessor : public Core
 {
 public:
@@ -38,10 +39,11 @@ private:
     QList<Comand> _comandCachce;
     /*! Свойство, хранящее указатель на текущую исполняемую команду */
     Comand *_currentComand;
+    QList<ExecuteModule*> _executeModuleList;
     void tick();
-    Comand chooseComand(int IC);
+    void chooseComand();
     void decodeComand();
-    //TODO Перенести в отдельный класс
+
 public:
     class Snapshot:public Memento
     {
