@@ -42,18 +42,23 @@ void Controller::saveFile(QByteArray fileContets)
     _contentFile = fileContets;
 }
 
-void Controller::parseFile()
+int Controller::parseFile()
 {
     QString str = QString(_contentFile);
     str.replace("\n\n","");
     qDebug() << str;
-    _parser->parseString(str.split("\n"));
+    if(_parser->parseString(str.split("\n"))==0)
+        return 0;
+    else
+        return -1;
 }
 
 void Controller::build()
 {
-    parseFile();
-    _core->init(_parser->getComandList(), _parser->getDataStrings());
+    if(parseFile()==0)
+    {
+        _core->init(_parser->getComandList(), _parser->getDataStrings());
+    }
 }
 
 void Controller::doContiniousExecute()

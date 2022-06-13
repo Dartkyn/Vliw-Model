@@ -7,7 +7,7 @@ class Parser
 {
 public:
     Parser();
-    void parseString(QStringList fileStringList);
+    int parseString(QStringList fileStringList);
     const QList<Data> &getDataStrings() const;
 
     const QList<Comand> &getComandList() const;
@@ -16,10 +16,11 @@ private:
     QList<Data> _dataStrings;
     QList<Comand> _comandList;
 
-    void parseDataString(QString currentStr);
-    void parseCodeString(QString currentStr);
-    Instruction parseInstructrions(QString str);
-    Comand parseComand(QString str, QString label);
+    int parseDataString(QString currentStr);
+    int parseCodeString(QString currentStr);
+    Instruction* parseInstructrions(QString str);
+    Comand* parseComand(QString str, QString label);
+    void printError(QString err, int ukStr);
 };
 
 #endif // PARSER_H

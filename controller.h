@@ -13,7 +13,7 @@ public:
     void createNewFile();
     QByteArray openFile(QString pathToFile);
     void saveFile(QByteArray fileContets);
-    void parseFile();
+    int parseFile();
     /*! Метод, отвечающий за запуск исходного кода, если isStepRun=true - запуск в пошаговом режиме*/
     void build();
     Controller();
