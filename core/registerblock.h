@@ -7,7 +7,7 @@ class RegisterBlock
 {
 public:
     RegisterBlock();
-    Register getRegisterOnName(QString regName);
+    Register* getRegisterOnName(QString regName);
     Register &IC();
     void setIC(const Register &newIC);
 

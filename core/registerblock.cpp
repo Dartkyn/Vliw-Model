@@ -10,24 +10,24 @@ RegisterBlock::RegisterBlock()
     _IC.setDoubleWord(0);
 }
 
-Register RegisterBlock::getRegisterOnName(QString regName)
+Register* RegisterBlock::getRegisterOnName(QString regName)
 {
     auto str = regName.toLower();
     if(str.at(0)=='r')
     {
        int ind = regName.replace("r", "").toInt();
-       return _generalPurposeRegisters[ind];
+       return &_generalPurposeRegisters[ind];
     }
     else
     {
         if(str == "hi")
-            return _HI;
+            return &_HI;
         else
         {
             if(str == "lo")
-                return _LO;
+                return &_LO;
             else
-                return _IC;
+                return &_IC;
         }
     }
 }

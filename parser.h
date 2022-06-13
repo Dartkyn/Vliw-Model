@@ -15,6 +15,7 @@ public:
 private:
     QList<Data> _dataStrings;
     QList<Comand> _comandList;
+    int _stringCounter;
 
     int parseDataString(QString currentStr);
     int parseCodeString(QString currentStr);

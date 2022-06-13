@@ -7,39 +7,40 @@ Parser::Parser()
 
 int Parser::parseString(QStringList fileStringList)
 {
-    int uk_str = 0;
+    _stringCounter = 0;
     bool flag = true;
-    while(uk_str < fileStringList.length())
+    while(_stringCounter < fileStringList.length())
     {
-        qDebug() << fileStringList[uk_str];
-        if(!fileStringList[uk_str].isEmpty())
+        if(!fileStringList[_stringCounter].isEmpty())
         {
-            if(fileStringList[uk_str] == kwData)
+            if(fileStringList[_stringCounter] == kwData)
             {
                 flag = true;
             }
             else
-                if(fileStringList[uk_str] == kwCode)
+                if(fileStringList[_stringCounter] == kwCode)
                 {
                     flag = false;
                 }
                 else
                     if(flag)
                     {
-                        if((parseDataString(fileStringList[uk_str])!=0))
+                        if((parseDataString(fileStringList[_stringCounter])!=0))
                         {
-                                printError("Ошибка в  в строке: ", uk_str+1);
-                    }
+                                printError("Ошибка в  в строке: ", _stringCounter+1);
+                                return -1;
+                        }
                     }
                     else
                     {
-                        if(parseCodeString(fileStringList[uk_str]) != 0)
+                        if(parseCodeString(fileStringList[_stringCounter]) != 0)
                         {
-                            printError("Ошибка в написании команды в строке: ", uk_str+1);
+                            //printError("Ошибка в написании команды в строке: ", _stringCounter+1);
+                            return -1;
                         }
                     }
         }
-        uk_str++;
+        _stringCounter++;
     }
     return 0;
 }
@@ -57,14 +58,13 @@ const QList<Comand> &Parser::getComandList() const
 
 int Parser::parseDataString(QString currentStr)
 {
-    qDebug() << "Hello from parseData";
-    qDebug() <<currentStr;
+
     while(currentStr[0] == ' ')
     {
         currentStr = currentStr.remove(0,1);
     }
     int indxLabelEnd = currentStr.indexOf(":")+1;
-    qDebug() << indxLabelEnd;
+
     QString label;
     Data data;
     if(indxLabelEnd != 0)
@@ -90,7 +90,6 @@ int Parser::parseDataString(QString currentStr)
     QByteArray arr;
     for(int i = 1; i< dataStr.length();i++)
     {
-        qDebug() <<"dataStr: " + dataStr[i];
         if(dataStr[i].contains(","))
         {
             QStringList lst = dataStr[i].split(",");
@@ -104,8 +103,6 @@ int Parser::parseDataString(QString currentStr)
             arr.append(dataStr[i].toUtf8());
         }
     }
-    qDebug() <<"Value: " + arr;
-    qDebug() <<"ValueASNumber: " + QString::number(arr.toLongLong(nullptr,16),16);
     data.setDataValue(arr.toLongLong(nullptr,16));
     _dataStrings.append(data);
     return 0;
@@ -114,14 +111,11 @@ int Parser::parseDataString(QString currentStr)
 int Parser::parseCodeString(QString currentStr)
 {
     Comand* comand;
-    qDebug() << "Hello from parseCode";
-    qDebug() <<currentStr;
     while(currentStr[0] == ' ')
     {
         currentStr = currentStr.remove(0,1);
     }
     int indxLabelEnd = currentStr.indexOf(":")+1;
-    qDebug() << indxLabelEnd;
     QString label;
     if(indxLabelEnd != 0)
         label = currentStr.section("", 0, indxLabelEnd-1);
@@ -132,7 +126,6 @@ int Parser::parseCodeString(QString currentStr)
     if(comand != nullptr)
     {
         _comandList.append(*comand);
-        qDebug() << currentStr;
         return 0;
     }
     else
@@ -157,7 +150,23 @@ Comand* Parser::parseComand(QString str, QString label)
             instructions.append(*inst);
         }
         else
+        {
             return nullptr;
+        }
+    }
+    int flcounter = 0;
+    for(auto inst:instructions)
+    {
+        int cdNumber = inst.keyword().codeNumber;
+        if((cdNumber>= kwJump.codeNumber) && (cdNumber <= kwJ.codeNumber))
+        {
+            flcounter++;
+        }
+    }
+    if(flcounter>1)
+    {
+        printError("Ошибка: использование более одной инструкции перехода в команде на строке: ", _stringCounter+1);
+        return nullptr;
     }
     Comand* com = new Comand(label, instructions);
     return com;
@@ -193,7 +202,7 @@ Instruction* Parser::parseInstructrions(QString str)
     Instruction* inst = new Instruction(keyWord, parameters);
     if(inst->keyword().codeNumber == kwErr.codeNumber)
     {
-        qDebug() << "Ошибка в инструкции: " + str;
+        printError("Ошибка в написании инструкции "+ keyWord + " в строке: ", _stringCounter+1);
         return nullptr;
     }
     return inst;
