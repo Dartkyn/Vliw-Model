@@ -73,19 +73,16 @@ void WorkWindow::registerTableInitiate()
     model->setHorizontalHeaderLabels(headerList);
     ui->registersTableView->setModel(model);
     ui->registersTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    int num;
     QStringList str;
     str = WindowManager::getInstance()->processorInfo().registerInfo;
-    //qDebug() << str.first();
-    /*for(int i = 0; i < str.length(); i++)
+    for(int i = 0; i < str.length(); i++)
     {
         qDebug()<< str.at(i);
-        num= rand()/(RAND_MAX/255);
-        QStandardItem* item = new QStandardItem(QString("R" + QString::number(i)));
-        model->setItem(i,0, item);
-        model->setItem(i,1, new QStandardItem(QString::number(num)));
-        model->setItem(i,2, new QStandardItem(QString::number(model->item(i,1)->text().toInt(),16).toUpper()));
-    }*/
+        QStringList row = str.at(i).split(" ");
+        model->setItem(i,0, new QStandardItem(row.at(0)));
+        model->setItem(i,1, new QStandardItem(QString::number(row.at(1).toLongLong())));
+        model->setItem(i,2, new QStandardItem(QString::number(model->item(i,1)->text().toLongLong(),16).toUpper()));
+    }
 }
 
 void WorkWindow::memoryTableInitiate()
@@ -118,6 +115,11 @@ void WorkWindow::loadCodeFile(QByteArray fileArray)
     str.append(fileArray);
     CodeEditor* cded = dynamic_cast<CodeEditor*>(codeEditor);
     cded->setPlainText(str);
+}
+
+void WorkWindow::init()
+{
+    registerTableInitiate();
 }
 
 void WorkWindow::on_showHideRegisters_toggled(bool arg1)

@@ -34,7 +34,7 @@ public:
     const ProcessorInfo &processorInfo() const;
     void setProcessorInfo(const ProcessorInfo &newProcessorInfo);
 
-    void updateInfo(QStringList coreInfo);
+    void updateInfo(ProcessorInfo coreInfo);
     const QStringList &recentFiles() const;
     void setRecentFiles(const QStringList &newRecentFiles);
     void openFile(QString filePath);

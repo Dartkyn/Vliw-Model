@@ -27,6 +27,7 @@ public:
     explicit WorkWindow(QWidget *parent = nullptr);
     ~WorkWindow();
     void loadCodeFile(QByteArray fileArray);
+    void init();
 private slots:
     void on_showHideRegisters_toggled(bool arg1);
 

@@ -4,7 +4,9 @@
 #include "readstoreunit.h"
 Proccessor::Proccessor()
 {
-
+    _currentFetchComand = nullptr;
+    _currentDecodeComand = nullptr;
+    _currentExecuteComand = nullptr;
 }
 
 Proccessor::Proccessor(const RegisterBlock &registerBlock, const QList<Data> &dataCache, const QList<Comand> &comandCachce, Comand *currentFetchComand, Comand *currentDecodeComand, Comand *currentExecuteComand, const QList<ExecuteModule *> &executeModuleList) : _registerBlock(registerBlock),
@@ -51,7 +53,7 @@ void Proccessor::update()
 {
     for(int i = 0; i < _listeners.length();i++)
     {
-        _listeners[i]->updateInfo(this->toString());
+        _listeners[i]->updateInfo(this->toProcessorInfo());
     }
 }
 
@@ -71,9 +73,9 @@ QStringList Proccessor::toString()
         comandList.append(_comandCachce[i].toString());
     }
     list.append(comandList);
-    list.append(currentFetchComand()->toString());
-    list.append(currentDecodeComand()->toString());
-    list.append(currentExecuteComand()->toString());
+    if(_currentFetchComand!= nullptr)list.append(currentFetchComand()->toString());
+    if(_currentDecodeComand!= nullptr)list.append(currentDecodeComand()->toString());
+    if(_currentExecuteComand!= nullptr)list.append(currentExecuteComand()->toString());
     return list;
 }
 
@@ -180,6 +182,10 @@ void Proccessor::chooseComand()
     _currentFetchComand = &(_comandCachce[ic]);
     qDebug() << "Текущая команда: " + _currentFetchComand->toString();
     ic++;
+    if(ic>=_comandCachce.length())
+    {
+        ic = 0;
+    }
     _registerBlock.IC().setDoubleWord(ic);
 }
 
@@ -291,6 +297,28 @@ int Proccessor::findAdressByLabel(QString label)
             return i;
     }
     return -1;
+}
+
+ProcessorInfo Proccessor::toProcessorInfo()
+{
+    ProcessorInfo procInfo;
+    procInfo.registerInfo = _registerBlock.toString();
+    QStringList dataString;
+    for(auto data:_dataCache)
+    {
+        dataString.append(data.toString());
+    }
+    procInfo.dataInfo = dataString;
+    QStringList comandList;
+    for(int i = 0; i < _comandCachce.length(); i++)
+    {
+        comandList.append(_comandCachce[i].toString());
+    }
+    procInfo.comandInfo = comandList;
+    procInfo.currentFetchComandInfo = (_currentFetchComand!=nullptr)? _currentFetchComand->toString(): "";
+    procInfo.currentDecodeComandInfo = (_currentFetchComand!=nullptr)? _currentDecodeComand->toString(): "";
+    procInfo.currentExecuteComandInfo = (_currentFetchComand!=nullptr)? _currentExecuteComand->toString(): "";
+    return procInfo;
 }
 
 Proccessor::Snapshot::Snapshot(Proccessor *proccessor, const RegisterBlock &registerBlck, const QList<Data> &dataCh, const QList<Comand> &comandCh, Comand *currFetchComand, Comand *currDecodeComand, Comand *currExecuteComand) : proccessor(proccessor),

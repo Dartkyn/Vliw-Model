@@ -54,7 +54,7 @@ private:
     void executeComand(QList<DecodedInstruction> decodeComand);
     QList<DecodedInstruction> decodeComand();
     int findAdressByLabel(QString label);
-
+    ProcessorInfo toProcessorInfo();
 public:
     class Snapshot:public Memento
     {

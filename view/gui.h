@@ -17,7 +17,7 @@ protected:
     ProcessorInfo _processorInfo;
     Controller *_controller = nullptr;
 public:
-    virtual void updateInfo(QStringList coreInfo)=0;
+    virtual void updateInfo(ProcessorInfo coreInfo)=0;
     virtual void attachController(Controller* controller){_controller = controller;};
 };
 

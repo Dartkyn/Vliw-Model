@@ -104,14 +104,14 @@ void WindowManager::setProcessorInfo(const ProcessorInfo &newProcessorInfo)
     _processorInfo = newProcessorInfo;
 }
 
-void WindowManager::updateInfo(QStringList coreInfo)
+void WindowManager::updateInfo(ProcessorInfo coreInfo)
 {
-    _processorInfo.registerInfo = QStringList(coreInfo.at(0));
-    _processorInfo.dataInfo = QStringList(coreInfo.at(1));
-    _processorInfo.comandInfo = QStringList(coreInfo.at(2));
-    _processorInfo.currentFetchComandInfo = coreInfo.at(3);
-    _processorInfo.currentDecodeComandInfo = coreInfo.at(4);
-    _processorInfo.currentExecuteComandInfo = coreInfo.at(5);
+    _processorInfo.registerInfo = coreInfo.registerInfo;
+    _processorInfo.dataInfo = coreInfo.dataInfo;
+    _processorInfo.comandInfo = coreInfo.comandInfo;
+    _processorInfo.currentFetchComandInfo = coreInfo.currentFetchComandInfo;
+    _processorInfo.currentDecodeComandInfo = coreInfo.currentDecodeComandInfo;
+    _processorInfo.currentExecuteComandInfo = coreInfo.currentExecuteComandInfo;
 }
 
 const QStringList &WindowManager::recentFiles() const
@@ -168,6 +168,7 @@ void WindowManager::openFile(QString filePath)
     if(_currentOpenedWindow == _enterWindow)
     {
         _currentOpenedWindow = _workWindow;
+        _workWindow->init();
         openCurrentWindow();
     }
 
@@ -179,6 +180,7 @@ void WindowManager::createFile()
     if(_currentOpenedWindow == _enterWindow)
     {
         _currentOpenedWindow = _workWindow;
+        _workWindow->init();
         openCurrentWindow();
     }
 }

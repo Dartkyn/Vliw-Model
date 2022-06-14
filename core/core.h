@@ -10,7 +10,7 @@ protected:
     QList<GUI*> _listeners;
 public:
     virtual void update()=0;
-    virtual void attach(GUI *gui){_listeners.append(gui);};
+    virtual void attach(GUI *gui){_listeners.append(gui); update();};
     virtual void doContiniousExecution() = 0;
     virtual Memento* doStep() = 0;
     virtual void init(QList<Comand> lstComand, QList<Data> lstMemory) = 0;
