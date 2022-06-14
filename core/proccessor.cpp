@@ -1,5 +1,7 @@
 #include "proccessor.h"
-
+#include "arithmeticlogicunit.h"
+#include "flowcontrolunit.h"
+#include "readstoreunit.h"
 Proccessor::Proccessor()
 {
 
@@ -70,6 +72,8 @@ QStringList Proccessor::toString()
     }
     list.append(comandList);
     list.append(currentFetchComand()->toString());
+    list.append(currentDecodeComand()->toString());
+    list.append(currentExecuteComand()->toString());
     return list;
 }
 
@@ -115,6 +119,7 @@ void Proccessor::init(QList<Comand> lstComand, QList<Data> lstMemory)
     {
         qDebug() << _comandCachce.value(i).toString();
     }
+    update();
 }
 
 const QList<Data> &Proccessor::dataCache() const
@@ -180,7 +185,26 @@ void Proccessor::chooseComand()
 
 void Proccessor::executeComand(QList<DecodedInstruction> decodeComand)
 {
-
+    _currentExecuteComand = _currentDecodeComand;
+    for(int i = 0; i< decodeComand.length(); i++)
+    {
+        ExecuteModule* execMod;
+        switch (decodeComand.at(i).type) {
+        case typeinstr::arlog : {execMod = new ArithmeticLogicUnit(); break;}
+        case typeinstr::ldstore :{execMod = new ReadStoreUnit(); break;}
+        case typeinstr::flcontr : {execMod = new FlowControlUnit(); break;}
+        case typeinstr::empty:{execMod = nullptr; break;}
+        }
+        _executeModuleList.append(execMod);
+    }
+    for(int i = 0; i< decodeComand.length(); i++)
+    {
+        if(decodeComand.at(i).type!=typeinstr::empty)
+        {
+            _executeModuleList.at(i)->execute(decodeComand.at(i));
+        }
+    }
+    _executeModuleList.clear();
 }
 
 QList<DecodedInstruction> Proccessor::decodeComand()
@@ -195,7 +219,8 @@ QList<DecodedInstruction> Proccessor::decodeComand()
         switch (decInsruct.kword.codeNumber) {
         case 10 ...29 : { decInsruct.type = typeinstr::arlog; break;};
         case 30 ...37:{decInsruct.type = typeinstr::ldstore; break;};
-        case 40 ...47: {decInsruct.type = typeinstr::flcontr; break;};
+        case 40 ...47: {decInsruct.type = typeinstr::flcontr; break;}
+        default: {decInsruct.type = typeinstr::empty; break;};
         }
         auto params = instruct.at(i).parameters();
         for(auto param: params)
@@ -230,7 +255,7 @@ QList<DecodedInstruction> Proccessor::decodeComand()
                      if(param.contains('('))
                      {
                         QString shift = param.section("",0,param.indexOf('('));
-                        QString base = param.section("",param.indexOf('('), param.indexOf(')'));
+                        QString base = param.section("",param.indexOf('(')+2, param.indexOf(')'));
                         auto reg = _registerBlock.getRegisterOnName(base);
                         operand.toperand = typeoper::adress;
                         operand.value.adress = reg->getDoubleWord() + shift.toInt();

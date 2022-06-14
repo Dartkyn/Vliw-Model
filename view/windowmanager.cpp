@@ -5,6 +5,12 @@ using namespace std;
 WindowManager* WindowManager::_instance = nullptr;
 WindowManager::WindowManager()
 {
+    _processorInfo.registerInfo = {""};
+    _processorInfo.dataInfo = {""};
+    _processorInfo.comandInfo = {""};
+    _processorInfo.currentFetchComandInfo = "";
+    _processorInfo.currentDecodeComandInfo = "";
+    _processorInfo.currentExecuteComandInfo = "";
     _enterWindow = new MainWindow();
     _currentOpenedWindow = dynamic_cast<QMainWindow*>(_enterWindow);
     _workWindow = new WorkWindow();
@@ -103,7 +109,9 @@ void WindowManager::updateInfo(QStringList coreInfo)
     _processorInfo.registerInfo = QStringList(coreInfo.at(0));
     _processorInfo.dataInfo = QStringList(coreInfo.at(1));
     _processorInfo.comandInfo = QStringList(coreInfo.at(2));
-    _processorInfo.currentComandInfo = coreInfo.at(3);
+    _processorInfo.currentFetchComandInfo = coreInfo.at(3);
+    _processorInfo.currentDecodeComandInfo = coreInfo.at(4);
+    _processorInfo.currentExecuteComandInfo = coreInfo.at(5);
 }
 
 const QStringList &WindowManager::recentFiles() const
@@ -120,6 +128,8 @@ void WindowManager::runFile()
 {
     _controller->build();
     _isRunning = true;
+    _controller->doContiniousExecute();
+    _isRunning = false;
 }
 
 void WindowManager::runStepFile()

@@ -1,8 +1,8 @@
 #ifndef KEYWORDS_H
 #define KEYWORDS_H
 #include "QString"
-
-constexpr int MEM_SIZE = 0x100;
+#include "register.h"
+#include "QList"
 struct Keyword{
     QString kword;
     int codeNumber;
@@ -59,4 +59,47 @@ static const Keyword kwJ = {"j",47,1};
 static const Keyword kwNop = {"nop",100,0};
 static const Keyword kwErr = {"error",666,0};
 
+enum typeinstr{arlog = 100, flcontr=200, ldstore=300, empty=400};
+enum typeoper{rgister = 70, value = 80, adress = 90};
+struct Operand{
+    typeoper toperand;
+    union OperandValue{
+        long long value;
+        int adress;
+        Register* reg;
+    }value;
+};
+struct DecodedInstruction{
+    Keyword kword;
+    typeinstr type;
+    QList<Operand> operands;
+    QString toString() const{
+        QString str = "Keyword: " + kword.kword + " codeNumber: " + QString::number(kword.codeNumber);
+        if(kword.codeNumber!=kwNop.codeNumber)
+        {str +=" Operands: ";
+        for(int i = 0; i< operands.length(); i++)
+        {
+            auto op = operands.at(i);
+            str+= "oper" + QString::number(i);
+            switch (op.toperand) {
+            case typeoper::rgister:{
+                str += " register: " + op.value.reg->toString();
+                break;
+            }
+            case typeoper::value:{
+                str+= " value: " + QString::number(op.value.value);
+                break;
+            }
+            case typeoper::adress:{
+                str+= " adress: " + QString::number(op.value.adress);
+                break;
+            }
+            }
+            str += " ; ";
+        }
+        }
+        str+= "\\ \n";
+        return str;
+    }
+};
 #endif // KEYWORDS_H

@@ -8,7 +8,6 @@ WorkWindow::WorkWindow(QWidget *parent) :
     ui->setupUi(this);
     codeEditor = new CodeEditor();
     ui->codeGroupBox->layout()->addWidget(codeEditor);
-    registerTableInitiate();
 }
 
 WorkWindow::~WorkWindow()
@@ -75,7 +74,8 @@ void WorkWindow::registerTableInitiate()
     ui->registersTableView->setModel(model);
     ui->registersTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     int num;
-    //QStringList str = WindowManager::getInstance()->processorInfo().registerInfo;
+    QStringList str;
+    str = WindowManager::getInstance()->processorInfo().registerInfo;
     //qDebug() << str.first();
     /*for(int i = 0; i < str.length(); i++)
     {
@@ -226,7 +226,6 @@ void WorkWindow::on_runStepToolBarItem_triggered()
 
 void WorkWindow::on_actionrunStepBackToolBarItem_triggered()
 {
-    saveFile();
     runStepBack();
 }
 

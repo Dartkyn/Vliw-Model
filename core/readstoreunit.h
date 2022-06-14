@@ -8,8 +8,7 @@ public:
     ReadStoreUnit();
 
     // ExecuteModule interface
-private:
-    void execute(Instruction instruction);
+    void execute(DecodedInstruction decodedInstruction);
 };
 
 #endif // READSTOREUNIT_H

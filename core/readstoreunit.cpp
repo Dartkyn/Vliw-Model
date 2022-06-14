@@ -1,11 +1,12 @@
 #include "readstoreunit.h"
-
+#include "QDebug"
 ReadStoreUnit::ReadStoreUnit()
 {
 
 }
 
 
-void ReadStoreUnit::execute(Instruction instruction)
+void ReadStoreUnit::execute(DecodedInstruction decodedInstruction)
 {
+    qDebug() << "I ReadStoreUnit execute: " + decodedInstruction.toString();
 }

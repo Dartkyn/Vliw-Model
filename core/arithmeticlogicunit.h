@@ -8,8 +8,7 @@ public:
     ArithmeticLogicUnit();
 
     // ExecuteModule interface
-private:
-    void execute(Instruction instruction);
+    void execute(DecodedInstruction decodedInstruction);
 };
 
 #endif // ARITHMETICLOGICUNIT_H

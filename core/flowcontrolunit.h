@@ -8,8 +8,7 @@ public:
     FlowControlUnit();
 
     // ExecuteModule interface
-private:
-    void execute(Instruction instruction);
+    void execute(DecodedInstruction decodedInstruction);
 };
 
 #endif // FLOWCONTROLUNIT_H

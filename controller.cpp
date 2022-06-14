@@ -63,7 +63,7 @@ void Controller::build()
 
 void Controller::doContiniousExecute()
 {
-    
+    _core->doContiniousExecution();
 }
 
 void Controller::doStep()

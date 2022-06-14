@@ -1,11 +1,12 @@
 #include "arithmeticlogicunit.h"
-
+#include "QDebug"
 ArithmeticLogicUnit::ArithmeticLogicUnit()
 {
 
 }
 
 
-void ArithmeticLogicUnit::execute(Instruction instruction)
+void ArithmeticLogicUnit::execute(DecodedInstruction decodedInstruction)
 {
+    qDebug() << "I ArithmeticLogicUnit execute: " + decodedInstruction.toString();
 }

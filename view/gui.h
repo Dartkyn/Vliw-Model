@@ -4,10 +4,12 @@
 #include "controller.h"
 class Controller;
 struct ProcessorInfo{
-    QStringList registerInfo = {""};
-    QStringList dataInfo = {""};
-    QStringList comandInfo = {""};
-    QString currentComandInfo = {""};
+    QStringList registerInfo;
+    QStringList dataInfo;
+    QStringList comandInfo;
+    QString currentFetchComandInfo;
+    QString currentDecodeComandInfo;
+    QString currentExecuteComandInfo;
 };
 
 class GUI{
