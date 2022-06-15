@@ -112,6 +112,7 @@ void WindowManager::updateInfo(ProcessorInfo coreInfo)
     _processorInfo.currentFetchComandInfo = coreInfo.currentFetchComandInfo;
     _processorInfo.currentDecodeComandInfo = coreInfo.currentDecodeComandInfo;
     _processorInfo.currentExecuteComandInfo = coreInfo.currentExecuteComandInfo;
+    _workWindow->init();
 }
 
 const QStringList &WindowManager::recentFiles() const

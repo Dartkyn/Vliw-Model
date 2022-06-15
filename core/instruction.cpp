@@ -49,7 +49,7 @@ QString Instruction::toString()
 
 bool Instruction::operator ==(Instruction instruction) const
 {
-    if(this->_keyword.kword == instruction.keyword().kword)
+    if(this->_keyword.codeNumber == instruction.keyword().codeNumber)
         return true;
     else
         return false;

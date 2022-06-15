@@ -12,20 +12,20 @@ struct Keyword{
 static const QString kwData = ".data";
 static const QString kwCode = ".code";
 //Ключевые слова - директивы данных
-static const Keyword kwByte = {".byte", 001,0};
-static const Keyword kwHalfWord = { ".hword", 002,0};
-static const Keyword kwWord = {".word", 003,0};
-static const Keyword kwDoubleWord = { ".dword", 004,0};
+static const Keyword kwByte = {".byte", 1,0};
+static const Keyword kwHalfWord = { ".hword", 2,0};
+static const Keyword kwWord = {".word", 3,0};
+static const Keyword kwDoubleWord = { ".dword", 4,0};
 //Ключевые слова - арифметико-логические команды
-static const Keyword kwAnd = {"and", 010,3};
-static const Keyword kwAdd = {"add", 011,3};
-static const Keyword kwDAdd = {"dadd", 012,3};
-static const Keyword kwSub = {"sub",013,3};
-static const Keyword kwDSub = {"dsub",014,3};
-static const Keyword kwDiv = {"div",015,2};
-static const Keyword kwDDiv = {"ddiv",016,2};
-static const Keyword kwMult = {"mult",017,2};
-static const Keyword kwDMult = {"dmult", 18,2};
+static const Keyword kwAnd = {"and", 10,3};
+static const Keyword kwAdd = {"add", 11,3};
+static const Keyword kwDAdd = {"dadd", 12,3};
+static const Keyword kwSub = {"sub",13,3};
+static const Keyword kwDSub = {"dsub",14,3};
+static const Keyword kwDiv = {"div",15,2};
+static const Keyword kwDDiv = {"ddiv",16,2};
+static const Keyword kwMult = {"mult",17,2};
+static const Keyword kwDMult = {"dmult",18,2};
 static const Keyword kwOr = {"or",19,3};
 static const Keyword kwXor = {"xor",20,3};
 static const Keyword kwNot = {"not",21,1};

@@ -47,7 +47,7 @@ void Register::setDoubleWord(long long value)
 
 QString Register::toString()
 {
-    QString str = QString::number(_registerValue, 16);
+    QString str = QString::number(_registerValue);
     while(str.length()< 16)
         str.push_front("0");
     return str;

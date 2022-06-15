@@ -232,14 +232,16 @@ QList<DecodedInstruction> Proccessor::decodeComand()
         for(auto param: params)
         {
             Operand operand;
-            if(param.at(0) =='r'&&(param.at(1) > '0'&& (param.at(1) < '9')))
+            if(param.length() > 1)
             {
-                operand.toperand = typeoper::rgister;
-                operand.value.reg = _registerBlock.getRegisterOnName(param);
-            }
+                if(param.at(0) =='r'&&(param.at(1) >= '0'&& (param.at(1) <= '9')))
+                {
+                    operand.toperand = typeoper::rgister;
+                    operand.value.reg = _registerBlock.getRegisterOnName(param);
+                }
             else
             {
-                if(param.at(0)>'0')
+                if(param.at(0)>='0')
                 {
                     if(param.at(1) == 'x')
                     {
@@ -249,7 +251,7 @@ QList<DecodedInstruction> Proccessor::decodeComand()
 
                     else
                     {
-                        if(param.at(0)<'9')
+                        if(param.at(0)<='9')
                         {
                            operand.toperand = typeoper::value;
                            operand.value.value = param.toInt();
@@ -275,6 +277,24 @@ QList<DecodedInstruction> Proccessor::decodeComand()
                             operand.value.adress = adr;
                         }
                      }
+                }
+            }
+            }
+            else
+            {
+                if(param.at(0)<='9'&&param.at(0)>='0')
+                {
+                   operand.toperand = typeoper::value;
+                   operand.value.value = param.toInt();
+                }
+                else
+                {
+                    int adr = findAdressByLabel(param);
+                    if(adr>=0)
+                    {
+                        operand.toperand = typeoper::adress;
+                        operand.value.adress = adr;
+                    }
                 }
             }
             decInsruct.operands.append(operand);
