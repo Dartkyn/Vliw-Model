@@ -38,17 +38,7 @@ void Proccessor::setComandCahce(const QList<Comand> &newComandCahce)
 {
     _comandCachce = newComandCahce;
 }
-/*
-Comand *Proccessor::currentComand() const
-{
-    return _currentComand;
-}
-*/
-/*void Proccessor::setCurrentComand(Comand *newCurrentComand)
-{
-    _currentComand = newCurrentComand;
-}
-*/
+
 void Proccessor::update()
 {
     for(int i = 0; i < _listeners.length();i++)
@@ -229,6 +219,31 @@ QList<DecodedInstruction> Proccessor::decodeComand()
         default: {decInsruct.type = typeinstr::empty; break;};
         }
         auto params = instruct.at(i).parameters();
+        int codeNumb = decInsruct.kword.codeNumber;
+        if((codeNumb == kwDiv.codeNumber)||(codeNumb == kwDDiv.codeNumber)||(codeNumb == kwMult.codeNumber)
+                ||(codeNumb == kwDMult.codeNumber)||(codeNumb == kwMflo.codeNumber)||(codeNumb == kwMfhi.codeNumber))
+        {
+            Operand operand;
+            operand.toperand = typeoper::rgister;
+            operand.value.reg = _registerBlock.getRegisterOnName("hi");
+            decInsruct.operands.append(operand);
+            operand.value.reg = _registerBlock.getRegisterOnName("lo");
+            decInsruct.operands.append(operand);
+        }
+        if((codeNumb == kwJal.codeNumber)||(codeNumb == kwJump.codeNumber)||(codeNumb == kwJeq.codeNumber)
+                ||(codeNumb == kwJeqz.codeNumber)||(codeNumb == kwJgez.codeNumber)||(codeNumb == kwJne.codeNumber)
+                ||(codeNumb == kwJnez.codeNumber))
+        {
+            Operand operand;
+            operand.toperand = typeoper::rgister;
+            operand.value.reg = _registerBlock.getRegisterOnName("ic");
+            decInsruct.operands.append(operand);
+            if(codeNumb == kwJal.codeNumber)
+            {
+                 operand.value.reg = _registerBlock.getRegisterOnName("r23");
+                 decInsruct.operands.append(operand);
+            }
+        }
         for(auto param: params)
         {
             Operand operand;

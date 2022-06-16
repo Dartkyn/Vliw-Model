@@ -69,8 +69,8 @@ Keyword Instruction::findKeyword(QString newKWord)
     if(kwOr.kword == newKWord) return kwOr;
     if(kwXor.kword == newKWord) return kwXor;
     if(kwNot.kword == newKWord) return kwNot;
-    if(kwSsl.kword == newKWord) return kwSsl;
-    if(kwDSsl.kword == newKWord) return kwDSsl;
+    if(kwSll.kword == newKWord) return kwSll;
+    if(kwDSll.kword == newKWord) return kwDSll;
     if(kwSrl.kword == newKWord) return kwSrl;
     if(kwDsrl.kword == newKWord) return kwDsrl;
     if(kwMflo.kword == newKWord) return kwMflo;

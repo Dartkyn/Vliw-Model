@@ -205,6 +205,11 @@ Instruction* Parser::parseInstructrions(QString str)
         printError("Ошибка в написании инструкции "+ keyWord + " в строке: ", _stringCounter+1);
         return nullptr;
     }
+    if(inst->keyword().operCount != inst->parameters().count())
+        {
+            printError("Ошибка: неверное количество параметров в написании инструкции "+ keyWord + " в строке: ", _stringCounter+1);
+            return nullptr;
+        }
     return inst;
 }
 

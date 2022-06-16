@@ -21,13 +21,13 @@ private:
     void execDMult(QList<Operand> operands);
     void execOR(QList<Operand> operands);
     void execXOR(QList<Operand> operands);
-    void execNot(QList<Operand> operands);
+    void execNot(Operand operand);
     void execSsl(QList<Operand> operands);
     void execDSsl(QList<Operand> operands);
     void execSrl(QList<Operand> operands);
     void execDSrl(QList<Operand> operands);
-    void execMflo(Operand operand);
-    void execMfhi(Operand operand);
+    void execMflo(QList<Operand> operands);
+    void execMfhi(QList<Operand> operands);
     void execMovn(QList<Operand> operands);
     void execMovz(QList<Operand> operands);
 
