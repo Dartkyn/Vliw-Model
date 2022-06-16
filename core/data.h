@@ -21,7 +21,6 @@ public:
 private:
     QString _label;
     QString _dataType;
-    /*!Содержит значение, кодируемое как 2 шестнадцатеричного символа - байт*/
     long long _dataValue;
 };
 

@@ -5,12 +5,12 @@ using namespace std;
 WindowManager* WindowManager::_instance = nullptr;
 WindowManager::WindowManager()
 {
-    _processorInfo.registerInfo = {""};
+    /*_processorInfo.registerInfo = {""};
     _processorInfo.dataInfo = {""};
     _processorInfo.comandInfo = {""};
     _processorInfo.currentFetchComandInfo = "";
     _processorInfo.currentDecodeComandInfo = "";
-    _processorInfo.currentExecuteComandInfo = "";
+    _processorInfo.currentExecuteComandInfo = "";*/
     _enterWindow = new MainWindow();
     _currentOpenedWindow = dynamic_cast<QMainWindow*>(_enterWindow);
     _workWindow = new WorkWindow();

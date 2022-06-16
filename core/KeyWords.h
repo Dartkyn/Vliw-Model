@@ -3,6 +3,7 @@
 #include "QString"
 #include "register.h"
 #include "QList"
+#include "data.h"
 struct Keyword{
     QString kword;
     int codeNumber;
@@ -60,13 +61,14 @@ static const Keyword kwNop = {"nop",100,0};
 static const Keyword kwErr = {"error",666,0};
 
 enum typeinstr{arlog = 100, flcontr=200, ldstore=300, empty=400};
-enum typeoper{rgister = 70, value = 80, adress = 90};
+enum typeoper{rgister = 60, value = 70, adress = 80, data = 90};
 struct Operand{
     typeoper toperand;
     union OperandValue{
         long long value;
         int adress;
         Register* reg;
+        Data* data;
     }value;
 };
 struct DecodedInstruction{

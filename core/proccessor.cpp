@@ -230,9 +230,7 @@ QList<DecodedInstruction> Proccessor::decodeComand()
             operand.value.reg = _registerBlock.getRegisterOnName("lo");
             decInsruct.operands.append(operand);
         }
-        if((codeNumb == kwJal.codeNumber)||(codeNumb == kwJump.codeNumber)||(codeNumb == kwJeq.codeNumber)
-                ||(codeNumb == kwJeqz.codeNumber)||(codeNumb == kwJgez.codeNumber)||(codeNumb == kwJne.codeNumber)
-                ||(codeNumb == kwJnez.codeNumber))
+        if(decInsruct.type == typeinstr::flcontr)
         {
             Operand operand;
             operand.toperand = typeoper::rgister;
@@ -310,6 +308,36 @@ QList<DecodedInstruction> Proccessor::decodeComand()
                         operand.toperand = typeoper::adress;
                         operand.value.adress = adr;
                     }
+                }
+            }
+            if(decInsruct.type == typeinstr::ldstore)
+            {
+                if(operand.toperand == typeoper::adress)
+                {
+                    int i = operand.value.adress;
+                    int j = 0;
+                    if(decInsruct.kword.codeNumber == kwLB.codeNumber||decInsruct.kword.codeNumber == kwSB.codeNumber)
+                    {
+                        i = operand.value.adress / 8;
+                        j = operand.value.adress % 8;
+                    }
+                    else
+                    if(decInsruct.kword.codeNumber == kwLH.codeNumber||decInsruct.kword.codeNumber == kwSH.codeNumber)
+                    {
+                        i = operand.value.adress / 4;
+                        j = operand.value.adress % 4;
+                    }
+                    else
+                    if(decInsruct.kword.codeNumber == kwLW.codeNumber||decInsruct.kword.codeNumber == kwSW.codeNumber)
+                    {
+                        i = operand.value.adress / 2;
+                        j = operand.value.adress % 2;
+                    }
+                    Data* data = &_dataCache[i];
+                    Operand op;
+                    op.toperand = typeoper::data;
+                    op.value.data = data;
+                    operand.value.adress = j;
                 }
             }
             decInsruct.operands.append(operand);

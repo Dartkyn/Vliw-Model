@@ -110,7 +110,7 @@ void ArithmeticLogicUnit::execDDiv(QList<Operand> operands)
 void ArithmeticLogicUnit::execMult(QList<Operand> operands)
 {
     //TODO Реализовать умножение со старшей и младшей частью
-    auto hi =  operands.at(0).value.reg;
+    //auto hi =  operands.at(0).value.reg;
     auto lo = operands.at(1).value.reg;
     auto oper = operands.at(2);
     auto operand1 = (oper.toperand == typeoper::rgister)? oper.value.reg->getDoubleWord() : oper.value.value;
@@ -123,7 +123,7 @@ void ArithmeticLogicUnit::execMult(QList<Operand> operands)
 void ArithmeticLogicUnit::execDMult(QList<Operand> operands)
 {
     //TODO Реализовать умножение со старшей и младшей частью
-    auto hi =  operands.at(0).value.reg;
+    //auto hi =  operands.at(0).value.reg;
     auto lo = operands.at(1).value.reg;
     auto oper = operands.at(2);
     auto operand1 = (oper.toperand == typeoper::rgister)? oper.value.reg->getDoubleWord() : oper.value.value;
