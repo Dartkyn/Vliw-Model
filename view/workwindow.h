@@ -59,9 +59,14 @@ private:
     void runStepFile();
     void runStepBack();
     void saveFile();
+    QString prepareComandString(QString comandString);
 private:
     Ui::WorkWindow *ui;
     QWidget* codeEditor;
+    QGraphicsScene* _scene;
+    int _currentXCoord=0;
+    int _currentYCoord=0;
+    int _currentLine=0;
 };
 
 #endif // WORKWINDOW_H

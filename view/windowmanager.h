@@ -43,6 +43,9 @@ public:
     void runStepFile();
     void stepBack();
     void saveFile(QByteArray fileContent);
+    bool isRunning() const;
+    void setIsRunning(bool newIsRunning);
+
 private:
     static WindowManager* _instance;
     /*!Начальная форма, открываемая при запуске программы */

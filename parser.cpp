@@ -27,7 +27,7 @@ int Parser::parseString(QStringList fileStringList)
                     {
                         if((parseDataString(fileStringList[_stringCounter])!=0))
                         {
-                                printError("Ошибка в  в строке: ", _stringCounter+1);
+                                printError("Ошибка в описании данных строке: ", _stringCounter+1);
                                 return -1;
                         }
                     }
@@ -35,7 +35,7 @@ int Parser::parseString(QStringList fileStringList)
                     {
                         if(parseCodeString(fileStringList[_stringCounter]) != 0)
                         {
-                            //printError("Ошибка в написании команды в строке: ", _stringCounter+1);
+
                             return -1;
                         }
                     }
@@ -103,7 +103,7 @@ int Parser::parseDataString(QString currentStr)
             arr.append(dataStr[i].toUtf8());
         }
     }
-    data.setDataValue(arr.toLongLong(nullptr,16));
+    data.setDataValue(arr.toLongLong());
     _dataStrings.append(data);
     return 0;
 }

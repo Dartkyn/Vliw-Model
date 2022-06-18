@@ -106,6 +106,10 @@ void Proccessor::init(QList<Comand> lstComand, QList<Data> lstMemory)
     {
         qDebug() << str.toString();
     }
+    Data dt = Data("",".dword",0);
+    while (_dataCache.length() < 100) {
+        _dataCache.append(dt);
+    }
     qDebug() << "Команды в процессоре";
     for(int i = 0;i < _comandCachce.length();i++)
     {
@@ -254,17 +258,24 @@ QList<DecodedInstruction> Proccessor::decodeComand()
                 }
             else
             {
-                if(param.at(0)>='0')
+                if(param.at(0)<='9'&&param.at(0)>='0')
                 {
-                    if(param.at(1) == 'x')
+                    if(param.at(0) == 0 &&param.at(1) == 'x')
                     {
                         operand.toperand = typeoper::value;
                         operand.value.value = param.section("", 2, param.length()).toInt();
                     }
-
                     else
                     {
-                        if(param.at(0)<='9')
+                        if(param.contains('('))
+                        {
+                           QString shift = param.section("",0,param.indexOf('('));
+                           QString base = param.section("",param.indexOf('(')+2, param.indexOf(')'));
+                           auto reg = _registerBlock.getRegisterOnName(base);
+                           operand.toperand = typeoper::adress;
+                           operand.value.adress = reg->getDoubleWord() + shift.toInt();
+                        }
+                        else
                         {
                            operand.toperand = typeoper::value;
                            operand.value.value = param.toInt();
@@ -273,42 +284,19 @@ QList<DecodedInstruction> Proccessor::decodeComand()
                 }
                 else
                 {
-                     if(param.contains('('))
-                     {
-                        QString shift = param.section("",0,param.indexOf('('));
-                        QString base = param.section("",param.indexOf('(')+2, param.indexOf(')'));
-                        auto reg = _registerBlock.getRegisterOnName(base);
-                        operand.toperand = typeoper::adress;
-                        operand.value.adress = reg->getDoubleWord() + shift.toInt();
-                     }
-                     else
-                     {
                         int adr = findAdressByLabel(param);
                         if(adr>=0)
                         {
                             operand.toperand = typeoper::adress;
                             operand.value.adress = adr;
                         }
-                     }
                 }
             }
             }
             else
             {
-                if(param.at(0)<='9'&&param.at(0)>='0')
-                {
-                   operand.toperand = typeoper::value;
-                   operand.value.value = param.toInt();
-                }
-                else
-                {
-                    int adr = findAdressByLabel(param);
-                    if(adr>=0)
-                    {
-                        operand.toperand = typeoper::adress;
-                        operand.value.adress = adr;
-                    }
-                }
+                operand.toperand = typeoper::value;
+                operand.value.value = param.toInt();
             }
             if(decInsruct.type == typeinstr::ldstore)
             {
@@ -337,6 +325,7 @@ QList<DecodedInstruction> Proccessor::decodeComand()
                     Operand op;
                     op.toperand = typeoper::data;
                     op.value.data = data;
+                    decInsruct.operands.append(op);
                     operand.value.adress = j;
                 }
             }

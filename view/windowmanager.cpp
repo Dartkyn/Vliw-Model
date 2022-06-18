@@ -160,6 +160,16 @@ void WindowManager::saveFile(QByteArray fileContent)
     }
 }
 
+bool WindowManager::isRunning() const
+{
+    return _isRunning;
+}
+
+void WindowManager::setIsRunning(bool newIsRunning)
+{
+    _isRunning = newIsRunning;
+}
+
 void WindowManager::openFile(QString filePath)
 {
     QByteArray byteArray = _controller->openFile(filePath);

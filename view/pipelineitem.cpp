@@ -16,15 +16,26 @@ void PipelineItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 {
     painter->drawRect(_pipRect);
     painter->fillRect(boundingRect(), _brush);
-    painter->drawText(boundingRect(),0, _innerString);
+    painter->drawText(boundingRect(),_aligment, _innerString);
+}
+
+const QRectF &PipelineItem::pipRect() const
+{
+    return _pipRect;
+}
+
+void PipelineItem::setPipRect(const QRectF &newPipRect)
+{
+    _pipRect = newPipRect;
 }
 
 
 
-PipelineItem::PipelineItem(const QRectF &pipRect, const QBrush &brush, const QString &innerString, qreal penWidth) :
+PipelineItem::PipelineItem(const QRectF &pipRect, const QBrush &brush, const QString &innerString, int aligment, qreal penWidth) :
     _pipRect(pipRect),
     _brush(brush),
     _innerString(innerString)
 {
     _penWidth = penWidth;
+    _aligment = aligment;
 }

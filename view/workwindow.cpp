@@ -1,5 +1,6 @@
 #include "workwindow.h"
 #include "windowmanager.h"
+const int drItemSize = 90;
 
 WorkWindow::WorkWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -8,6 +9,8 @@ WorkWindow::WorkWindow(QWidget *parent) :
     ui->setupUi(this);
     codeEditor = new CodeEditor();
     ui->codeGroupBox->layout()->addWidget(codeEditor);
+    _scene = new QGraphicsScene();
+    ui->pipelinesGraphicsView->setScene(_scene);
 }
 
 WorkWindow::~WorkWindow()
@@ -17,48 +20,44 @@ WorkWindow::~WorkWindow()
 
 void WorkWindow::drawItems()
 {
-    QGraphicsScene * scene = new QGraphicsScene;
-    ui->pipelinesGraphicsView->setScene(scene);
     PipelineItem* pipIt;
-    int count;
-    for(int i = 0; i < 200; i+=40)
+    QString str_fetch = WindowManager::getInstance()->processorInfo().currentFetchComandInfo;
+    str_fetch = prepareComandString(str_fetch);
+    if(str_fetch!="")
     {
-        pipIt = new PipelineItem(QRectF(0+i, i, 40, 40), QBrush(Qt::yellow), "IF");
-        scene->addItem(pipIt);
-        pipIt = new PipelineItem(QRectF(40+i, i, 40, 40), QBrush(Qt::blue), "ID");
-        scene->addItem(pipIt);
-        pipIt = new PipelineItem(QRectF(80+i, i, 40, 40), QBrush(Qt::red), "EX");
-        scene->addItem(pipIt);
-        pipIt = new PipelineItem(QRectF(120+i, i, 40, 40), QBrush(Qt::green), "MEM");
-        scene->addItem(pipIt);
-        pipIt = new PipelineItem(QRectF(160+i, i, 40, 40), QBrush(Qt::darkMagenta), "WB");
-        scene->addItem(pipIt);
-        count = i;
+        pipIt = new PipelineItem(QRectF(_currentXCoord, _currentYCoord, drItemSize, drItemSize), QBrush(Qt::yellow), "IF\n\n" + str_fetch);
+        _scene->addItem(pipIt);
     }
-    count+=40;
-    pipIt = new PipelineItem(QRectF(0+count, count, 40, 40), QBrush(Qt::yellow), "IF");
-    scene->addItem(pipIt);
-    pipIt = new PipelineItem(QRectF(40+count, count, 40, 40), QBrush(Qt::blue), "ID");
-    scene->addItem(pipIt);
-    pipIt = new PipelineItem(QRectF(80+count, count, 40, 40), QBrush(Qt::red), "EX");
-    scene->addItem(pipIt);
-    pipIt = new PipelineItem(QRectF(120+count, count, 40, 40), QBrush(Qt::green), "MEM");
-    scene->addItem(pipIt);
-    count+=40;
-    pipIt = new PipelineItem(QRectF(0+count, count, 40, 40), QBrush(Qt::yellow), "IF");
-    scene->addItem(pipIt);
-    pipIt = new PipelineItem(QRectF(40+count, count, 40, 40), QBrush(Qt::blue), "ID");
-    scene->addItem(pipIt);
-    pipIt = new PipelineItem(QRectF(80+count, count, 40, 40), QBrush(Qt::red), "EX");
-    scene->addItem(pipIt);
-    count+=40;
-    pipIt = new PipelineItem(QRectF(0+count, count, 40, 40), QBrush(Qt::yellow), "IF");
-    scene->addItem(pipIt);
-    pipIt = new PipelineItem(QRectF(40+count, count, 40, 40), QBrush(Qt::blue), "ID");
-    scene->addItem(pipIt);
-    count+=40;
-    pipIt = new PipelineItem(QRectF(0+count, count, 40, 40), QBrush(Qt::yellow), "IF");
-    scene->addItem(pipIt);
+    QString str_decode = WindowManager::getInstance()->processorInfo().currentDecodeComandInfo;
+    str_decode = prepareComandString(str_decode);
+    if(str_decode!="")
+    {
+        pipIt = new PipelineItem(QRectF(_currentXCoord + drItemSize, _currentYCoord, drItemSize, drItemSize), QBrush(Qt::blue), "ID\n\n" + str_decode);
+        _scene->addItem(pipIt);
+    }
+    QString str_execute = WindowManager::getInstance()->processorInfo().currentExecuteComandInfo;
+    str_execute = prepareComandString(str_execute);
+    if(str_execute!="")
+    {
+        pipIt = new PipelineItem(QRectF(_currentXCoord+drItemSize*2, _currentYCoord, drItemSize, drItemSize), QBrush(Qt::red), "EX",Qt::AlignTop);
+        _scene->addItem(pipIt);
+        int coords_x = pipIt->pipRect().x();
+        int coords_y = pipIt->pipRect().y()+30;
+        int minsize = (drItemSize-30)/3;
+        QStringList str_executeList = str_execute.split("\n");
+        pipIt = new PipelineItem(QRectF(coords_x,coords_y,drItemSize,minsize),
+                                             QBrush(Qt::green),str_executeList.at(0));
+        _scene->addItem(pipIt);
+        pipIt = new PipelineItem(QRectF(coords_x,coords_y + minsize,drItemSize,minsize),
+                                             QBrush(Qt::green),str_executeList.at(1));
+        _scene->addItem(pipIt);
+        pipIt = new PipelineItem(QRectF(coords_x,coords_y + minsize*2,drItemSize,minsize),
+                                             QBrush(Qt::green),str_executeList.at(2));
+        _scene->addItem(pipIt);
+    }
+    _currentYCoord+=drItemSize;
+    _currentLine++;
+    _currentXCoord = drItemSize * _currentLine;
 }
 
 
@@ -131,6 +130,17 @@ void WorkWindow::init()
 {
     registerTableInitiate();
     memoryTableInitiate();
+    QString msg="";
+    if(WindowManager::getInstance()->isRunning())
+    {
+        msg = "Текущая команда: " + WindowManager::getInstance()->processorInfo().currentExecuteComandInfo;
+    }
+    else
+    {
+        msg = "Исполнение не запущено";
+    }
+    statusBar()->showMessage(msg);
+    drawItems();
 }
 
 void WorkWindow::on_showHideRegisters_toggled(bool arg1)
@@ -206,6 +216,14 @@ void WorkWindow::saveFile()
 {
     QPlainTextEdit* textEdit = dynamic_cast<QPlainTextEdit*>(codeEditor);
     WindowManager::getInstance()->saveFile(textEdit->toPlainText().toUtf8());
+}
+
+QString WorkWindow::prepareComandString(QString comandString)
+{
+    if(comandString.contains("//"))
+        comandString = comandString.section("",comandString.indexOf("//")+3, comandString.length());
+    comandString.replace(";","\n");
+    return comandString;
 }
 
 

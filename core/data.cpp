@@ -46,7 +46,7 @@ QString Data::toString()
     QString str;
     str =(_label.length() > 0) ? _label + "//" : "";
     str = str + _dataType + "//";
-    str = str + QString::number(_dataValue,16);
+    str = str + QString::number(_dataValue);
     return str;
 }
 
