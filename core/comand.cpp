@@ -39,6 +39,10 @@ QString Comand::toString()
 
 bool Comand::operator ==(Comand comad)
 {
+    if(this == nullptr)
+    {
+        return false;
+    }
     bool flag = true;
     for(int i = 0; i < this->_instructions.length(); i++)
     {

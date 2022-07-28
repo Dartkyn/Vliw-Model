@@ -14,10 +14,11 @@ class MemoryMainWindow : public QMainWindow
 public:
     explicit MemoryMainWindow(QWidget *parent = nullptr);
     ~MemoryMainWindow();
+    void init();
 
 private:
-    void memoryTableInitiate();
     Ui::MemoryMainWindow *ui;
+    void memoryTableInitiate();
 };
 
 #endif // MEMORYMAINWINDOW_H

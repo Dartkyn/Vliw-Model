@@ -63,7 +63,6 @@ void WorkWindow::drawItems()
 
 void WorkWindow::registerTableInitiate()
 {
-    //TODO Подумать над реализацией отображения регистров.
     QStringList headerList;
     QStandardItemModel* model = new QStandardItemModel();
     headerList.append("Регистр");
@@ -195,15 +194,12 @@ void WorkWindow::on_openMemoryForm_triggered()
 
 void WorkWindow::runFile()
 {
-    /*QPlainTextEdit* textEdit = dynamic_cast<QPlainTextEdit*>(codeEditor);
-    textEdit->setReadOnly(true);*/
+
     WindowManager::getInstance()->runFile();
 }
 
 void WorkWindow::runStepFile()
 {
-    /*QPlainTextEdit* textEdit = dynamic_cast<QPlainTextEdit*>(codeEditor);
-    textEdit->setReadOnly(true);*/
     WindowManager::getInstance()->runStepFile();
 }
 

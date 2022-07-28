@@ -4,7 +4,7 @@ Parser::Parser()
 {
 
 }
-//TODO Сделать проверки на количество операндов и использование регистров в команде
+
 int Parser::parseString(QStringList fileStringList)
 {
     _stringCounter = 0;

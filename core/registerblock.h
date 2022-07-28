@@ -2,7 +2,7 @@
 #define REGISTERBLOCK_H
 #include "register.h"
 #include "QList"
-
+//TODO подумать над реализацией регистра флагов.
 class RegisterBlock
 {
 public:

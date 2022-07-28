@@ -7,6 +7,7 @@
 #include "parser.h"
 #include "core/memento.h"
 class Core;
+/*! Класс, отвечающий за получение команд от GUI и передача ее классам ядра*/
 class Controller
 {
 public:
@@ -14,8 +15,8 @@ public:
     QByteArray openFile(QString pathToFile);
     void saveFile(QByteArray fileContets);
     int parseFile();
-    /*! Метод, отвечающий за запуск исходного кода, если isStepRun=true - запуск в пошаговом режиме*/
-    void build();
+    /*! Метод, отвечающий за сборку  исходного кода*/
+    int build();
     Controller();
     void attachCore(Core* core);
     ~Controller();
@@ -32,7 +33,7 @@ private:
     /*! Свойстово отвечающее за хранение содержиого файла*/
     QByteArray _contentFile;
     std::vector<Memento*> _history;
-
+    bool _isRunning = false;
 };
 
 #endif // CONTROLLER_H

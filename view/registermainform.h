@@ -14,7 +14,7 @@ class RegisterMainForm : public QMainWindow
 public:
     explicit RegisterMainForm(QWidget *parent = nullptr);
     ~RegisterMainForm();
-
+    void init();
 private:
     void registerTableInitiate();
     Ui::RegisterMainForm *ui;

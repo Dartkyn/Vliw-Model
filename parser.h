@@ -3,6 +3,7 @@
 #include "core/comand.h"
 #include "core/data.h"
 #include "QDebug"
+/*! Класс, отвечающий за парсинг исходного кода*/
 class Parser
 {
 public:

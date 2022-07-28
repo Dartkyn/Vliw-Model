@@ -8,6 +8,7 @@
 #include "memorymainwindow.h"
 #include "registermainform.h"
 #include "gui.h"
+/*! Класс, отвечающий за управление окнами*/
 class WindowManager : public GUI
 {
 public:

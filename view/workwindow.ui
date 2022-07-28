@@ -147,7 +147,6 @@
     <addaction name="showHidePipelines"/>
     <addaction name="openRegisterForm"/>
     <addaction name="openMemoryForm"/>
-    <addaction name="action_9"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>

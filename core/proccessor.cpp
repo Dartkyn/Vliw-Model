@@ -88,10 +88,8 @@ void Proccessor::doContiniousExecution()
 
 Memento* Proccessor::doStep()
 {
-    qDebug() << "Делаем cнимок";
     Snapshot* snp = new Snapshot(this, _registerBlock, _dataCache, _comandCachce,
                                  _currentFetchComand, _currentDecodeComand, _currentExecuteComand);
-    qDebug() << "Снимок создан";
     tick();
     return snp;
 }
@@ -162,10 +160,6 @@ void Proccessor::tick()
 {
     chooseComand();
     auto dc = decodeComand();
-    for(int i = 0; i < dc.length(); i++)
-    {
-        qDebug() << dc.at(i).toString();
-    }
     executeComand(dc);
     update();
 }
@@ -385,13 +379,13 @@ Proccessor::Snapshot::Snapshot(Proccessor *proccessor, const RegisterBlock &regi
 
 void Proccessor::Snapshot::restore()
 {
-    qDebug() << "Восстанавливаем";
     proccessor->setRegisterBlock(_registerBlck);
     proccessor->setDataCache(_dataCh);
     proccessor->setComandCahce(_comandCh);
     proccessor->setCurrentFetchComand(currFetchComand);
     proccessor->setCurrentDecodeComand(currDecodeComand);
     proccessor->setCurrentExecuteComand(currExecuteComand);
+    proccessor->update();
 }
 
 

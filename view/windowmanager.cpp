@@ -5,12 +5,6 @@ using namespace std;
 WindowManager* WindowManager::_instance = nullptr;
 WindowManager::WindowManager()
 {
-    /*_processorInfo.registerInfo = {""};
-    _processorInfo.dataInfo = {""};
-    _processorInfo.comandInfo = {""};
-    _processorInfo.currentFetchComandInfo = "";
-    _processorInfo.currentDecodeComandInfo = "";
-    _processorInfo.currentExecuteComandInfo = "";*/
     _enterWindow = new MainWindow();
     _currentOpenedWindow = dynamic_cast<QMainWindow*>(_enterWindow);
     _workWindow = new WorkWindow();
@@ -113,6 +107,8 @@ void WindowManager::updateInfo(ProcessorInfo coreInfo)
     _processorInfo.currentDecodeComandInfo = coreInfo.currentDecodeComandInfo;
     _processorInfo.currentExecuteComandInfo = coreInfo.currentExecuteComandInfo;
     _workWindow->init();
+    _memoryWindow->init();
+    _registerWindow->init();
 }
 
 const QStringList &WindowManager::recentFiles() const
@@ -127,19 +123,23 @@ void WindowManager::setRecentFiles(const QStringList &newRecentFiles)
 
 void WindowManager::runFile()
 {
-    _controller->build();
-    _isRunning = true;
-    _controller->doContiniousExecute();
-    _isRunning = false;
+    if(_controller->build()>=0)
+    {
+        _isRunning = true;
+        _controller->doContiniousExecute();
+        _isRunning = false;
+    }
 }
 
 void WindowManager::runStepFile()
 {
     if(!_isRunning)
     {
-        _controller->build();
-        _isRunning = true;
-        _controller->doStep();
+        if(_controller->build()>=0)
+        {
+            _isRunning = true;
+            _controller->doStep();
+        }
     }
     else
     {

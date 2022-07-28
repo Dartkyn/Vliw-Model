@@ -53,12 +53,15 @@ int Controller::parseFile()
         return -1;
 }
 
-void Controller::build()
+int Controller::build()
 {
     if(parseFile()==0)
     {
         _core->init(_parser->getComandList(), _parser->getDataStrings());
+        return 0;
     }
+    else
+        return -1;
 }
 
 void Controller::doContiniousExecute()
